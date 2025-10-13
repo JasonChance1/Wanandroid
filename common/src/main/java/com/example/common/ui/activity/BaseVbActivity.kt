@@ -4,35 +4,55 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.viewbinding.ViewBinding
 import com.example.common.R
-import com.example.common.transparentStatusBar
 import com.example.common.ui.activity.state.DefaultStateImpl
 import com.example.common.ui.activity.state.IState
+import java.lang.reflect.ParameterizedType
 
 /**
  * @author wandervogel
- * @date 2025-09-22  星期一
+ * @date 2025-09-23  星期二
  * @description
  */
-abstract class BaseActivity : AppCompatActivity(), IState {
+abstract class BaseVbActivity<VB : ViewBinding> : AppCompatActivity(), IState {
     private var loadingView: View? = null
-    private var badNetworkView: View? = null
-    private var emptyView: View? = null
     private var errorView: View? = null
+    private var emptyView: View? = null
+    private var badNetworkView: View? = null
     private var stateImpl: IState? = null
+    private var _binding: VB? = null
+    protected val binding: VB
+        get() = _binding
+            ?: throw IllegalStateException("Binding should not be accessed after onDestroy()")
+
+    private val tag = this::class.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        preprocessing()
         super.onCreate(savedInstanceState)
-        if (Build.VERSION.SDK_INT < 35) {
-            transparentStatusBar()
+        _binding = createBinding() ?: createBinding(layoutInflater)
+        setContentView(binding.root)
+        log("onCreate")
+        initState()
+        if (autoLoading()) {
+            startLoading()
         } else {
-            enableEdgeToEdge()
+            loadingFinished()
         }
-        setContentView(getLayoutId())
+        initView()
+    }
+
+    protected open fun preprocessing(){
+
+    }
+
+    private fun initState() {
         val stateView = View.inflate(this, R.layout.layout_state, null)
         loadingView = stateView.findViewById(R.id.loading)
         errorView = stateView.findViewById(R.id.loadErrorView)
@@ -45,13 +65,7 @@ abstract class BaseActivity : AppCompatActivity(), IState {
             FrameLayout.LayoutParams.MATCH_PARENT
         )
         addContentView(stateView, params)
-        if (autoLoading()) {
-            startLoading()
-        } else {
-            loadingFinished()
-        }
-        initView()
-        initData()
+
     }
 
     protected open fun initView() {
@@ -66,7 +80,32 @@ abstract class BaseActivity : AppCompatActivity(), IState {
         return DefaultStateImpl(this)
     }
 
-    override fun startLoading(msg: String) {
+    @Suppress("UNCHECKED_CAST")
+    private fun createBinding(inflater: LayoutInflater): VB {
+        try {
+            // 通过反射获取泛型类 VB 的实际类型
+            val superClass = javaClass.genericSuperclass
+            val type = (superClass as ParameterizedType).actualTypeArguments[0]
+            val clazz = type as Class<VB>
+
+            // 调用 inflate 方法
+            val method = clazz.getMethod("inflate", LayoutInflater::class.java)
+            return method.invoke(null, inflater) as VB
+        } catch (e: Exception) {
+            throw RuntimeException("Failed to create binding instance", e)
+        }
+    }
+
+    protected fun createBinding(): VB? = null
+
+    override fun onDestroy() {
+        super.onDestroy()
+        log("onDestroy")
+        overridePendingTransition(R.anim.slide_out, R.anim.slide_in)
+        _binding = null
+    }
+
+    override fun startLoading(msg:String) {
         stateImpl?.startLoading(msg)
     }
 
@@ -78,22 +117,15 @@ abstract class BaseActivity : AppCompatActivity(), IState {
         stateImpl?.showBadNetwork(listener)
     }
 
-    override fun showError(tip: String, errorAction: View.OnClickListener?) {
-        stateImpl?.showError(tip, errorAction)
+    override fun showError(tip: String, listener: View.OnClickListener?) {
+        stateImpl?.showError(tip, listener)
     }
 
-    override fun showEmptyView(tip: String, emptyAction: View.OnClickListener?) {
-        stateImpl?.showEmptyView(tip, emptyAction)
+    override fun showEmptyView(tip: String, listener: View.OnClickListener?) {
+        stateImpl?.showEmptyView(tip, listener)
     }
 
-    abstract fun getLayoutId(): Int
-
-    protected fun autoLoading() = true
-
-    override fun onDestroy() {
-        super.onDestroy()
-        overridePendingTransition(R.anim.slide_out, R.anim.slide_in)
-    }
+    protected open fun autoLoading() = true
 
     protected open fun startActivity(cls: Class<*>) {
         val intent = Intent(this, cls)
@@ -108,6 +140,10 @@ abstract class BaseActivity : AppCompatActivity(), IState {
         } else {
             overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
         }
+    }
+
+    private fun log(msg:String){
+        Log.e(tag,"----------$msg----------")
     }
 
     override fun getStateView(): View? = stateImpl?.getStateView()

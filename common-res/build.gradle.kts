@@ -4,8 +4,8 @@ plugins {
 }
 
 android {
-    namespace = "com.example.common"
-    compileSdk = 35
+    namespace = "com.example.common_res"
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 24
@@ -30,28 +30,14 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-    buildFeatures{
-        viewBinding = true
-    }
 }
 
 dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-    api (libs.androidx.datastore.preferences)
     implementation(libs.material)
-    implementation(project(":model"))
-    implementation(project(":common-res"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-    implementation(libs.okhttp)
-
-    implementation(libs.retrofit)
-    implementation(libs.converter.gson)
-    implementation(libs.adapter.rxjava2)
-
-    implementation (libs.lottie)
 }

@@ -6,4 +6,18 @@
     </style>
 
     <style name="Theme.Wanandroid" parent="Base.Theme.Wanandroid" />
+    <style name="Theme.MyApp.Splash" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- 必须加上这一行，才能启用 SplashScreen API -->
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+        <item name="windowSplashScreenIconBackgroundColor">#fcf</item>
+        <item name="postSplashScreenTheme">@style/Theme.MyApp</item>
+    </style>
+    <style name="Theme.MyApp" parent="Theme.AppCompat.DayNight.NoActionBar">
+
+
+        <item name="windowSplashScreenAnimationDuration">200</item>
+    </style>
+
+
 </resources>
