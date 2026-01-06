@@ -4,4 +4,7 @@
     <string name="bad_network_view_tip">您的网络不给力，点击屏幕可重新加载</string>
     <string name="failed_load_data">加载失败</string>
     <string name="retry">点击屏幕重试</string>
+    <string name="username">账号</string>
+    <string name="password">密码</string>
+    <string name="login">登录</string>
 </resources>

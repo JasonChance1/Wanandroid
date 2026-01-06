@@ -1,4 +1,4 @@
-package com.example.common.ui.activity.state
+package com.example.common.ui.state
 
 import android.view.View
 

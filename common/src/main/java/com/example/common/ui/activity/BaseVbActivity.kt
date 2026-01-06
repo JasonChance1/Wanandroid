@@ -8,11 +8,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 import com.example.common.R
-import com.example.common.ui.activity.state.DefaultStateImpl
-import com.example.common.ui.activity.state.IState
+import com.example.common.ui.state.DefaultStateImpl
+import com.example.common.ui.state.IState
 import java.lang.reflect.ParameterizedType
 
 /**
@@ -48,7 +49,7 @@ abstract class BaseVbActivity<VB : ViewBinding> : AppCompatActivity(), IState {
         initView()
     }
 
-    protected open fun preprocessing(){
+    protected open fun preprocessing() {
 
     }
 
@@ -105,7 +106,7 @@ abstract class BaseVbActivity<VB : ViewBinding> : AppCompatActivity(), IState {
         _binding = null
     }
 
-    override fun startLoading(msg:String) {
+    override fun startLoading(msg: String) {
         stateImpl?.startLoading(msg)
     }
 
@@ -142,9 +143,15 @@ abstract class BaseVbActivity<VB : ViewBinding> : AppCompatActivity(), IState {
         }
     }
 
-    private fun log(msg:String){
-        Log.e(tag,"----------$msg----------")
+    private fun log(msg: String) {
+        Log.e(tag, "----------$msg----------")
     }
 
     override fun getStateView(): View? = stateImpl?.getStateView()
+
+    protected open fun toast(msg: String?, duration: Int = Toast.LENGTH_SHORT) {
+        msg.takeIf { !it.isNullOrEmpty() }?.let {
+            Toast.makeText(this, msg, duration).show()
+        }
+    }
 }

@@ -10,7 +10,7 @@
         android:name=".App"
         android:theme="@style/Theme.Wanandroid">
         <activity
-            android:name=".LoginActivity"
+            android:name=".activities.auth.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

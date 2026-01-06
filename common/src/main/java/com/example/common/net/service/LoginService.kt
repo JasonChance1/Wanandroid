@@ -7,19 +7,19 @@ import retrofit2.http.Query
 
 interface LoginService {
     @POST("user/login")
-    suspend fun getLogin(
+    suspend fun login(
         @Query("username") username: String,
         @Query("password") password: String
     ): BaseResponse<Login>
 
     @POST("user/register")
-    suspend fun getRegister(
+    suspend fun register(
         @Query("username") username: String,
         @Query("password") password: String,
         @Query("repassword") repassword: String
     ): BaseResponse<Login>
 
     @GET("user/logout/json")
-    suspend fun getLogout(): BaseResponse<Any>
+    suspend fun logout(): BaseResponse<Any>
 
 }

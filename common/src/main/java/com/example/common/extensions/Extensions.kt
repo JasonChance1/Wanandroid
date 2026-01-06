@@ -1,4 +1,4 @@
-package com.example.common
+package com.example.common.extensions
 
 import android.app.Activity
 import android.app.Activity.OVERRIDE_TRANSITION_OPEN
@@ -9,6 +9,9 @@ import android.os.Build
 import android.util.TypedValue
 import android.view.View
 import androidx.core.view.WindowCompat
+import com.example.common.R
+import com.example.model.ApiResult
+import com.example.model.BaseResponse
 
 fun View?.setVisible(isVisible: Boolean) {
     this?.visibility = if (isVisible) View.VISIBLE else View.GONE
@@ -25,6 +28,7 @@ fun View.fadeVisible(visible: Boolean, duration: Long = 200) {
         }.start()
     }
 }
+
 val Float.dp: Int
     get() = (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()
 
@@ -60,5 +64,19 @@ fun Activity.startActivity(cls: Class<*>) {
         )
     } else {
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
+    }
+}
+
+
+suspend inline fun <T> safeApiCall(crossinline block: suspend () -> BaseResponse<T>): ApiResult<T> {
+    return try {
+        val resp = block()
+        resp.takeIf { it.isSuccess() }?.data?.let { data ->
+            ApiResult.Success(data)
+        } ?: run {
+            ApiResult.Error(resp.errorMsg.ifBlank { "Unknown error" })
+        }
+    } catch (t: Throwable) {
+        ApiResult.Error(t.message ?: "Network error", t)
     }
 }

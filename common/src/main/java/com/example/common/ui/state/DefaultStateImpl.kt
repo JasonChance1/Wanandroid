@@ -1,11 +1,10 @@
-package com.example.common.ui.activity.state
+package com.example.common.ui.state
 
 import android.content.Context
 import android.view.View
 import android.widget.TextView
 import com.example.common.R
-import com.example.common.fadeVisible
-import com.example.common.setVisible
+import com.example.common.extensions.fadeVisible
 
 /**
  * @author wandervogel

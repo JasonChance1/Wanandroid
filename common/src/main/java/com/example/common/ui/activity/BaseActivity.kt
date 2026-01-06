@@ -9,9 +9,9 @@ import android.widget.FrameLayout
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.example.common.R
-import com.example.common.transparentStatusBar
-import com.example.common.ui.activity.state.DefaultStateImpl
-import com.example.common.ui.activity.state.IState
+import com.example.common.extensions.transparentStatusBar
+import com.example.common.ui.state.DefaultStateImpl
+import com.example.common.ui.state.IState
 
 /**
  * @author wandervogel
