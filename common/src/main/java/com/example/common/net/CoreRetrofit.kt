@@ -5,9 +5,11 @@ import com.example.common.net.interceptor.SaveCookieInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 import java.util.concurrent.TimeUnit
 
+import com.ihsanbal.logging.Level
+import com.ihsanbal.logging.LoggingInterceptor
+import okhttp3.internal.platform.Platform
 
 object CoreRetrofit {
     private const val BASE_URL = "https://www.wanandroid.com/"
@@ -18,6 +20,7 @@ object CoreRetrofit {
             readTimeout(10, TimeUnit.SECONDS)
             addInterceptor(SaveCookieInterceptor())
             addInterceptor(AddCookieInterceptor())
+            addInterceptor(LoggingInterceptor.Builder().setLevel(Level.BASIC).log(Platform.WARN).request("request").response("response").build())
         }.build()
 
     }

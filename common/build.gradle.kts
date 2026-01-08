@@ -54,4 +54,5 @@ dependencies {
     implementation(libs.adapter.rxjava2)
 
     implementation(libs.lottie)
+    implementation(libs.logginginterceptor)
 }

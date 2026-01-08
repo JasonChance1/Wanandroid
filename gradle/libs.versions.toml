@@ -14,6 +14,7 @@ lifecycleRuntimeKtx = "2.9.3"
 activityCompose = "1.10.0"
 composeBom = "2024.04.01"
 appcompat = "1.7.1"
+logginginterceptor = "3.1.0"
 lottie = "6.5.0"
 material = "1.13.0"
 activity = "1.10.0"
@@ -42,6 +43,7 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+logginginterceptor = { module = "com.github.ihsanbal:LoggingInterceptor", version.ref = "logginginterceptor" }
 lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
