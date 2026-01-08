@@ -4,7 +4,7 @@ import android.content.Context
 import android.view.View
 import android.widget.TextView
 import com.example.common.R
-import com.example.common.extensions.fadeVisible
+import com.example.common.extensions.setVisible
 
 /**
  * @author wandervogel
@@ -46,62 +46,62 @@ class DefaultStateImpl(
     }
 
     override fun startLoading(msg: String) {
-        stateView.fadeVisible(true)
-        errorView?.fadeVisible(false)
-        emptyView?.fadeVisible(false)
-        badNetView?.fadeVisible(false)
+        stateView.setVisible(true)
+        errorView?.setVisible(false)
+        emptyView?.setVisible(false)
+        badNetView?.setVisible(false)
         loadingView?.apply {
             tvLoading?.text = msg
-            fadeVisible(true)
+            setVisible(true)
         }
     }
 
     override fun loadingFinished() {
-        stateView.fadeVisible(false)
-        loadingView?.fadeVisible(false)
-        errorView?.fadeVisible(false)
-        emptyView?.fadeVisible(false)
-        badNetView?.fadeVisible(false)
+        stateView.setVisible(false)
+        loadingView?.setVisible(false)
+        errorView?.setVisible(false)
+        emptyView?.setVisible(false)
+        badNetView?.setVisible(false)
     }
 
     override fun showError(tip: String, errorAction: View.OnClickListener?) {
-        stateView.fadeVisible(true)
-        loadingView?.fadeVisible(false)
-        emptyView?.fadeVisible(false)
-        badNetView?.fadeVisible(false)
+        stateView.setVisible(true)
+        loadingView?.setVisible(false)
+        emptyView?.setVisible(false)
+        badNetView?.setVisible(false)
         errorView?.apply {
-            errorRetryTip?.fadeVisible(errorAction != null)
+            errorRetryTip?.setVisible(errorAction != null)
             errorAction?.let {
                 setOnClickListener(it)
             }
             tvError?.text = tip
-            fadeVisible(true)
+            setVisible(true)
         }
     }
 
     override fun showEmptyView(tip: String, emptyAction: View.OnClickListener?) {
-        stateView.fadeVisible(true)
-        loadingView?.fadeVisible(false)
-        errorView?.fadeVisible(false)
-        badNetView?.fadeVisible(false)
+        stateView.setVisible(true)
+        loadingView?.setVisible(false)
+        errorView?.setVisible(false)
+        badNetView?.setVisible(false)
         emptyView?.apply {
             emptyAction?.let {
                 setOnClickListener(it)
             }
-            emptyRetryTip?.fadeVisible(emptyAction != null)
+            emptyRetryTip?.setVisible(emptyAction != null)
             tvEmpty?.text = tip
-            fadeVisible(true)
+            setVisible(true)
         }
     }
 
     override fun showBadNetwork(listener: View.OnClickListener) {
-        stateView.fadeVisible(true)
-        loadingView?.fadeVisible(false)
-        errorView?.fadeVisible(false)
-        emptyView?.fadeVisible(false)
+        stateView.setVisible(true)
+        loadingView?.setVisible(false)
+        errorView?.setVisible(false)
+        emptyView?.setVisible(false)
         badNetView?.apply {
             setOnClickListener(listener)
-            fadeVisible(true)
+            setVisible(true)
         }
     }
 

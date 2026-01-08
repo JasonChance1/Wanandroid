@@ -1,14 +1,11 @@
 package com.example.common.ui.activity
 
-import android.content.Intent
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import com.example.common.R
 import com.example.common.extensions.transparentStatusBar
 import com.example.common.ui.state.DefaultStateImpl
 import com.example.common.ui.state.IState
@@ -19,10 +16,6 @@ import com.example.common.ui.state.IState
  * @description
  */
 abstract class BaseActivity : AppCompatActivity(), IState {
-    private var loadingView: View? = null
-    private var badNetworkView: View? = null
-    private var emptyView: View? = null
-    private var errorView: View? = null
     private var stateImpl: IState? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,18 +26,16 @@ abstract class BaseActivity : AppCompatActivity(), IState {
             enableEdgeToEdge()
         }
         setContentView(getLayoutId())
-        val stateView = View.inflate(this, R.layout.layout_state, null)
-        loadingView = stateView.findViewById(R.id.loading)
-        errorView = stateView.findViewById(R.id.loadErrorView)
-        emptyView = stateView.findViewById(R.id.emptyView)
-        badNetworkView = stateView.findViewById(R.id.badNetworkView)
 
         stateImpl = getState()
-        val params = FrameLayout.LayoutParams(
-            FrameLayout.LayoutParams.MATCH_PARENT,
-            FrameLayout.LayoutParams.MATCH_PARENT
-        )
-        addContentView(stateView, params)
+        stateImpl?.let {
+            val params = FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT
+            )
+            addContentView(it.getStateView(), params)
+        }
+
         if (autoLoading()) {
             startLoading()
         } else {
@@ -88,27 +79,7 @@ abstract class BaseActivity : AppCompatActivity(), IState {
 
     abstract fun getLayoutId(): Int
 
-    protected fun autoLoading() = true
-
-    override fun onDestroy() {
-        super.onDestroy()
-        overridePendingTransition(R.anim.slide_out, R.anim.slide_in)
-    }
-
-    protected open fun startActivity(cls: Class<*>) {
-        val intent = Intent(this, cls)
-        startActivity(intent)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            overrideActivityTransition(
-                OVERRIDE_TRANSITION_OPEN,
-                R.anim.slide_in,
-                R.anim.slide_out,
-                Color.TRANSPARENT
-            )
-        } else {
-            overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
-        }
-    }
+    protected fun autoLoading() = false
 
     override fun getStateView(): View? = stateImpl?.getStateView()
 }

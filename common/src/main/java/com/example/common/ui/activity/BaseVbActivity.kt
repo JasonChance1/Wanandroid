@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 import com.example.common.R
+import com.example.common.ui.dialog.LoadingDialog
 import com.example.common.ui.state.DefaultStateImpl
 import com.example.common.ui.state.IState
 import java.lang.reflect.ParameterizedType
@@ -22,16 +23,14 @@ import java.lang.reflect.ParameterizedType
  * @description
  */
 abstract class BaseVbActivity<VB : ViewBinding> : AppCompatActivity(), IState {
-    private var loadingView: View? = null
-    private var errorView: View? = null
-    private var emptyView: View? = null
-    private var badNetworkView: View? = null
     private var stateImpl: IState? = null
     private var _binding: VB? = null
     protected val binding: VB
         get() = _binding
             ?: throw IllegalStateException("Binding should not be accessed after onDestroy()")
-
+    private val loadingDialog by lazy {
+        LoadingDialog(this)
+    }
     private val tag = this::class.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,18 +53,16 @@ abstract class BaseVbActivity<VB : ViewBinding> : AppCompatActivity(), IState {
     }
 
     private fun initState() {
-        val stateView = View.inflate(this, R.layout.layout_state, null)
-        loadingView = stateView.findViewById(R.id.loading)
-        errorView = stateView.findViewById(R.id.loadErrorView)
-        emptyView = stateView.findViewById(R.id.emptyView)
-        badNetworkView = stateView.findViewById(R.id.badNetworkView)
 
         stateImpl = getState()
-        val params = FrameLayout.LayoutParams(
-            FrameLayout.LayoutParams.MATCH_PARENT,
-            FrameLayout.LayoutParams.MATCH_PARENT
-        )
-        addContentView(stateView, params)
+        stateImpl?.let {
+            val params = FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT
+            )
+            addContentView(it.getStateView(), params)
+        }
+
 
     }
 
@@ -97,7 +94,7 @@ abstract class BaseVbActivity<VB : ViewBinding> : AppCompatActivity(), IState {
         }
     }
 
-    protected fun createBinding(): VB? = null
+    protected open fun createBinding(): VB? = null
 
     override fun onDestroy() {
         super.onDestroy()
@@ -126,7 +123,7 @@ abstract class BaseVbActivity<VB : ViewBinding> : AppCompatActivity(), IState {
         stateImpl?.showEmptyView(tip, listener)
     }
 
-    protected open fun autoLoading() = true
+    protected open fun autoLoading() = false
 
     protected open fun startActivity(cls: Class<*>) {
         val intent = Intent(this, cls)
@@ -153,5 +150,13 @@ abstract class BaseVbActivity<VB : ViewBinding> : AppCompatActivity(), IState {
         msg.takeIf { !it.isNullOrEmpty() }?.let {
             Toast.makeText(this, msg, duration).show()
         }
+    }
+
+    protected open fun showLoading(msg: String = "加载中...") {
+        loadingDialog.show(msg)
+    }
+
+    protected open fun hideLoading() {
+        loadingDialog.hide()
     }
 }

@@ -1,15 +1,16 @@
 package com.example.app_mvvm_kotlin.activities.auth
 
+import android.content.Intent
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.example.app_mvvm_kotlin.MainActivity
+import com.example.app_mvvm_kotlin.activities.MainActivity
 import com.example.app_mvvm_kotlin.databinding.ActivityLoginBinding
-import com.example.app_mvvm_kotlin.viewmodel.AuthViewModel
-import com.example.common.entities.state.AuthEvent
-import com.example.common.extensions.value
+import com.example.app_mvvm_kotlin.viewmodel.LoginViewModel
+import com.example.common.entities.event.LoginEvent
 import com.example.common.ui.activity.BaseVbActivity
 import kotlinx.coroutines.launch
 
@@ -19,25 +20,46 @@ import kotlinx.coroutines.launch
  * @description 登录
  */
 class LoginActivity : BaseVbActivity<ActivityLoginBinding>() {
-    private val vm: AuthViewModel by viewModels()
+    private val vm: LoginViewModel by viewModels()
+    override fun createBinding() = ActivityLoginBinding.inflate(layoutInflater)
+    private val registerLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            val username = result.data?.getStringExtra(RegisterActivity.EXTRA_USERNAME).orEmpty()
+            vm.applyRegisteredUsername(username)
+        }
+
     override fun autoLoading() = false
 
     override fun initView() {
         super.initView()
-        binding.etUsername.doAfterTextChanged { vm.onUsernameChanged(it?.toString().orEmpty()) }
-        binding.etPassword.doAfterTextChanged { vm.onPasswordChanged(it?.toString().orEmpty()) }
-        binding.btnLogin.setOnClickListener {
-            val username = binding.etUsername.value
-            val password = binding.etPassword.value
+        with(binding) {
+            etUsername.doAfterTextChanged { vm.onUsernameChanged(it?.toString().orEmpty()) }
+            etPassword.doAfterTextChanged { vm.onPasswordChanged(it?.toString().orEmpty()) }
+
+            btnLogin.setOnClickListener { vm.login() }
+            tvRegister.setOnClickListener { vm.clickRegister() }
         }
+        observeState()
+        observeEvent()
+        loadingFinished()
     }
 
     private fun observeState() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                vm.uiState.collect { state ->
-                    binding.btnLogin.isEnabled = !state.loading
+                vm.uiState.collect { s ->
 
+                    binding.btnLogin.isEnabled = !s.loading
+                    if (s.loading) {
+                        showLoading()
+                    } else {
+                        hideLoading()
+                    }
+
+                    if (binding.etUsername.text?.toString() != s.username) {
+                        binding.etUsername.setText(s.username)
+                        binding.etUsername.setSelection(s.username.length)
+                    }
                 }
             }
         }
@@ -48,13 +70,18 @@ class LoginActivity : BaseVbActivity<ActivityLoginBinding>() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 vm.eventFlow.collect { e ->
                     when (e) {
-                        is AuthEvent.Toast -> toast(e.msg)
-                        AuthEvent.LoginSuccess -> {
+                        is LoginEvent.Toast -> toast(e.msg)
+                        LoginEvent.LoginSuccess -> {
                             startActivity(MainActivity::class.java)
                         }
 
-                        AuthEvent.RegisterSuccess -> {
-
+                        LoginEvent.GoRegister -> {
+                            registerLauncher.launch(
+                                Intent(
+                                    this@LoginActivity,
+                                    RegisterActivity::class.java
+                                )
+                            )
                         }
                     }
                 }
