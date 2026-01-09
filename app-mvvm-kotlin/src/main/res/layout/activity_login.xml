@@ -1,77 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:background="@color/app_surface"
-    android:orientation="vertical"
-    android:padding="@dimen/dp_16">
+    android:background="@drawable/bg_login_gradient"
+    android:padding="@dimen/dp_24">
 
+    <!-- 登录卡片 -->
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/materialCardView2"
-        android:layout_width="match_parent"
+        android:id="@+id/card_login"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/app_surface"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.4"
-        app:strokeWidth="@dimen/dp_0">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.45"
+        app:cardCornerRadius="@dimen/dp_16"
+        app:cardElevation="@dimen/dp_8"
+        app:cardUseCompatPadding="true"
+        app:strokeWidth="@dimen/dp_0"
+        android:backgroundTint="@color/app_surface">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/dp_16">
+            android:padding="@dimen/dp_24">
 
+            <!-- 标题 -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="欢迎回来"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="@color/app_on_surface" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_4"
+                android:text="请登录你的账号"
+                android:textSize="14sp"
+                android:textColor="@color/app_on_surface" />
+
+            <!-- 用户名 -->
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_24"
                 android:hint="@string/username">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/app_on_surface" />
+                    android:textColor="@color/app_on_surface"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-
+            <!-- 密码 -->
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_8"
-                android:hint="@string/password">
+                android:layout_marginTop="@dimen/dp_12"
+                android:hint="@string/password"
+                app:endIconMode="password_toggle">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/app_on_surface" />
+                    android:inputType="textPassword"
+                    android:textColor="@color/app_on_surface"/>
             </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- 登录按钮 -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="@dimen/dp_24"
+                android:text="@string/login"
+                android:textSize="16sp"
+                app:cornerRadius="@dimen/dp_24"
+                app:backgroundTint="@color/primary_500" />
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_16"
-        android:text="@string/login"
-        app:backgroundTint="@color/primary_500"
-        app:cornerRadius="@dimen/dp_99"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialCardView2" />
-
+    <!-- 注册 -->
     <TextView
         android:id="@+id/tv_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="注册"
+        android:text="没有账号？注册"
+        android:textSize="14sp"
         android:textColor="@color/primary_500"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="@dimen/dp_16"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

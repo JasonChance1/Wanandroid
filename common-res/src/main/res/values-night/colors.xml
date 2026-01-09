@@ -31,5 +31,19 @@
     <color name="to_top_pressed">#235A30</color>
 
     <color name="dialog_content_bg">#2E2E2E</color>
+    <color name="app_surface">#0B1220</color>
+    <color name="app_on_surface">#E5E7EB</color>
+    <color name="app_divider">#243041</color>
 
+
+    <color name="app_primary">#C8E2F8</color>
+    <color name="app_on_primary">#000000</color>
+    <color name="app_primary_pressed">#AED4F4</color>
+    <color name="app_primary_container">#244E73</color>
+    <color name="app_on_primary_container">#FFFFFF</color>
+
+    <color name="app_secondary">#DCCEFC</color>
+    <color name="app_on_secondary">#000000</color>
+    <color name="app_secondary_container">#462E7B</color>
+    <color name="app_on_secondary_container">#FFFFFF</color>
 </resources>

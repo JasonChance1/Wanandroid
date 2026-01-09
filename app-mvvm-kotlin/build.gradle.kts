@@ -58,4 +58,5 @@ dependencies {
     implementation(project(":common-res"))
 
     implementation(libs.androidx.core.splashscreen)
+    implementation(libs.androidx.datastore.preferences)
 }
