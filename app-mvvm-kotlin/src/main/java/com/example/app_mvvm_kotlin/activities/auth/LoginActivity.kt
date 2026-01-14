@@ -10,8 +10,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.example.app_mvvm_kotlin.activities.MainActivity
 import com.example.app_mvvm_kotlin.databinding.ActivityLoginBinding
 import com.example.app_mvvm_kotlin.viewmodel.LoginViewModel
+import com.example.common.constant.DSConstant
 import com.example.common.entities.event.LoginEvent
 import com.example.common.ui.activity.BaseVbActivity
+import com.example.common.util.DataStoreUtil
 import kotlinx.coroutines.launch
 
 /**
@@ -72,6 +74,7 @@ class LoginActivity : BaseVbActivity<ActivityLoginBinding>() {
                     when (e) {
                         is LoginEvent.Toast -> toast(e.msg)
                         LoginEvent.LoginSuccess -> {
+                            DataStoreUtil.putSync(DSConstant.USERNAME, binding.etUsername.text.toString())
                             startActivity(MainActivity::class.java)
                         }
 

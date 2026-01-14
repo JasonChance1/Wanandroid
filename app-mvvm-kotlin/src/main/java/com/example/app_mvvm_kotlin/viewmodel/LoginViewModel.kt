@@ -3,8 +3,10 @@ package com.example.app_mvvm_kotlin.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.app_mvvm_kotlin.repositories.AuthRepository
+import com.example.common.constant.DSConstant
 import com.example.common.entities.event.LoginEvent
 import com.example.common.entities.state.LoginUiState
+import com.example.common.util.DataStoreUtil
 import com.example.model.ApiResult
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,6 +31,15 @@ class LoginViewModel(
 
     fun clickRegister() {
         viewModelScope.launch { _event.send(LoginEvent.GoRegister) }
+    }
+
+    init {
+        viewModelScope.launch {
+            // 预填账号
+            DataStoreUtil.getData(DSConstant.USERNAME, "").collect { username ->
+                _uiState.update { it.copy(username = username) }
+            }
+        }
     }
 
     fun login() {
