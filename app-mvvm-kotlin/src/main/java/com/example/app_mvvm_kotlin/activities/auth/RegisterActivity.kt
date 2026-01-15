@@ -1,6 +1,7 @@
 package com.example.app_mvvm_kotlin.activities.auth
 
 import android.content.Intent
+import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Lifecycle
@@ -25,8 +26,8 @@ class RegisterActivity : BaseVbActivity<ActivityRegisterBinding>() {
 
     private val vm: RegisterViewModel by viewModels()
 
-    override fun initView() {
-        super.initView()
+    override fun initView(savedInstanceState: Bundle?) {
+        super.initView(savedInstanceState)
         with(binding) {
             etUsername.doAfterTextChanged { vm.onUsernameChanged(it?.toString().orEmpty()) }
             etPassword.doAfterTextChanged { vm.onPasswordChanged(it?.toString().orEmpty()) }

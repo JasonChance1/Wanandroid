@@ -12,6 +12,7 @@ import androidx.core.view.WindowCompat
 import com.example.common.R
 import com.example.model.ApiResult
 import com.example.model.BaseResponse
+import kotlin.coroutines.cancellation.CancellationException
 
 fun View?.setVisible(isVisible: Boolean) {
     this?.visibility = if (isVisible) View.VISIBLE else View.GONE
@@ -66,16 +67,21 @@ fun Activity.startActivity(cls: Class<*>) {
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
     }
 }
-
-
-suspend inline fun <T> safeApiCall(crossinline block: suspend () -> BaseResponse<T>): ApiResult<T> {
+suspend inline fun <T> safeApiCall(
+    crossinline block: suspend () -> BaseResponse<T>
+): ApiResult<T?> {
     return try {
         val resp = block()
-        resp.takeIf { it.isSuccess() }?.data?.let { data ->
-            ApiResult.Success(data)
-        } ?: run {
-            ApiResult.Error(resp.errorMsg.ifBlank { "Unknown error" })
+        if (resp.isSuccess()) {
+            ApiResult.Success(resp.data)
+        } else {
+            ApiResult.Error(
+                message = resp.errorMsg.ifBlank { "Unknown error" },
+                throwable = null
+            )
         }
+    } catch (e: CancellationException) {
+        throw e
     } catch (t: Throwable) {
         ApiResult.Error(t.message ?: "Network error", t)
     }

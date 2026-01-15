@@ -9,9 +9,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 import com.example.common.R
+import com.example.common.extensions.transparentStatusBar
 import com.example.common.ui.dialog.LoadingDialog
 import com.example.common.ui.state.DefaultStateImpl
 import com.example.common.ui.state.IState
@@ -36,6 +38,11 @@ abstract class BaseVbActivity<VB : ViewBinding> : AppCompatActivity(), IState {
     override fun onCreate(savedInstanceState: Bundle?) {
         preprocessing()
         super.onCreate(savedInstanceState)
+        if (Build.VERSION.SDK_INT < 35) {
+            transparentStatusBar()
+        } else {
+            enableEdgeToEdge()
+        }
         _binding = createBinding() ?: createBinding(layoutInflater)
         setContentView(binding.root)
         log("onCreate")
@@ -45,7 +52,7 @@ abstract class BaseVbActivity<VB : ViewBinding> : AppCompatActivity(), IState {
         } else {
             loadingFinished()
         }
-        initView()
+        initView(savedInstanceState)
     }
 
     protected open fun preprocessing() {
@@ -66,7 +73,7 @@ abstract class BaseVbActivity<VB : ViewBinding> : AppCompatActivity(), IState {
 
     }
 
-    protected open fun initView() {
+    protected open fun initView(savedInstanceState: Bundle?) {
 
     }
 

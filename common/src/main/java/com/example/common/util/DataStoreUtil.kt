@@ -15,6 +15,7 @@ import okhttp3.Cookie
 import java.io.IOException
 
 private val Context.dataStore by preferencesDataStore(name = "user_prefs")
+
 /**
  * @author wandervogel
  * @date 2025-09-23  星期二
@@ -31,6 +32,7 @@ object DataStoreUtil {
         dataStore = context.dataStore
         return this
     }
+
     fun <T> getSync(key: String, default: T): T {
         return runBlocking {
             getOnce(key, default)
@@ -83,14 +85,14 @@ object DataStoreUtil {
         dataStore.edit { it.clear() }
     }
 
-    suspend fun loadAll(): List<Cookie> {
+    suspend fun loadCookies(): List<Cookie> {
         val set = dataStore.data.first()[DSConstant.COOKIES].orEmpty()
         val now = System.currentTimeMillis()
         return set.mapNotNull { CookieCodec.decode(it) }
             .filter { it.expiresAt > now }
     }
 
-    suspend fun saveAll(cookies: List<Cookie>) {
+    suspend fun saveCookies(cookies: List<Cookie>) {
         val now = System.currentTimeMillis()
         val set = cookies
             .filter { it.expiresAt > now }
@@ -113,6 +115,6 @@ object DataStoreUtil {
             is Float -> floatPreferencesKey(name)
             is Boolean -> booleanPreferencesKey(name)
             is String -> stringPreferencesKey(name)
-            else -> throw IllegalArgumentException(if(sample==null)"value cannot be null" else "Unsupported type:${sample!!::class.simpleName}")
+            else -> throw IllegalArgumentException(if (sample == null) "value cannot be null" else "Unsupported type:${sample!!::class.simpleName}")
         } as Preferences.Key<T>
 }

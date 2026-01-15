@@ -1,6 +1,7 @@
 [versions]
 adapterRxjava2 = "2.3.0"
 agp = "8.7.2"
+banner = "2.2.3"
 converterGson = "2.9.0"
 coreSplashscreen = "1.0.1"
 datastorePreferences = "1.1.7"
@@ -19,6 +20,7 @@ lottie = "6.5.0"
 material = "1.13.0"
 activity = "1.10.0"
 constraintlayout = "2.2.1"
+navigationUiKtx = "2.9.6"
 okhttp = "4.12.0"
 datastoreCoreAndroid = "1.1.7"
 lifecycleViewmodelAndroid = "2.9.3"
@@ -28,6 +30,9 @@ adapter-rxjava2 = { module = "com.squareup.retrofit2:adapter-rxjava2", version.r
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
+androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment", version.ref = "navigationUiKtx" }
+androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui", version.ref = "navigationUiKtx" }
+banner = { module = "io.github.youth5201314:banner", version.ref = "banner" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }

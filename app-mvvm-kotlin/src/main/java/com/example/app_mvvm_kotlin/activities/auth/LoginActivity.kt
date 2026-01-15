@@ -1,13 +1,14 @@
 package com.example.app_mvvm_kotlin.activities.auth
 
 import android.content.Intent
+import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.example.app_mvvm_kotlin.activities.MainActivity
+import com.example.app_mvvm_kotlin.activities.home.MainActivity
 import com.example.app_mvvm_kotlin.databinding.ActivityLoginBinding
 import com.example.app_mvvm_kotlin.viewmodel.LoginViewModel
 import com.example.common.constant.DSConstant
@@ -32,8 +33,8 @@ class LoginActivity : BaseVbActivity<ActivityLoginBinding>() {
 
     override fun autoLoading() = false
 
-    override fun initView() {
-        super.initView()
+    override fun initView(savedInstanceState: Bundle?) {
+        super.initView(savedInstanceState)
         with(binding) {
             etUsername.doAfterTextChanged { vm.onUsernameChanged(it?.toString().orEmpty()) }
             etPassword.doAfterTextChanged { vm.onPasswordChanged(it?.toString().orEmpty()) }
@@ -73,7 +74,8 @@ class LoginActivity : BaseVbActivity<ActivityLoginBinding>() {
                 vm.eventFlow.collect { e ->
                     when (e) {
                         is LoginEvent.Toast -> toast(e.msg)
-                        LoginEvent.LoginSuccess -> {
+                        is LoginEvent.LoginSuccess -> {
+                            e.login
                             DataStoreUtil.putSync(DSConstant.USERNAME, binding.etUsername.text.toString())
                             startActivity(MainActivity::class.java)
                         }

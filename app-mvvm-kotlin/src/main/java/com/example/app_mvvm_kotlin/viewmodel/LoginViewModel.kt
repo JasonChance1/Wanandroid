@@ -57,7 +57,7 @@ class LoginViewModel(
             when (val r = repo.login(username, password)) {
                 is ApiResult.Success -> {
                     _uiState.update { it.copy(loading = false) }
-                    _event.send(LoginEvent.LoginSuccess)
+                    _event.send(LoginEvent.LoginSuccess(r.data))
                 }
 
                 is ApiResult.Error -> {

@@ -10,10 +10,10 @@ class AuthRepository(
     private val service: LoginService = CoreRetrofit.create(LoginService::class.java)
 ) {
 
-    suspend fun login(username: String, password: String): ApiResult<Login> =
+    suspend fun login(username: String, password: String): ApiResult<Login?> =
         safeApiCall { service.login(username, password) }
 
-    suspend fun register(username: String, password: String, repassword: String): ApiResult<Login> =
+    suspend fun register(username: String, password: String, repassword: String): ApiResult<Login?> =
         safeApiCall { service.register(username, password, repassword) }
 
     suspend fun logout(): ApiResult<Unit> =
