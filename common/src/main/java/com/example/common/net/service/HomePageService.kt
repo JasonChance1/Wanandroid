@@ -25,7 +25,8 @@ interface HomePageService {
 
     @GET("article/list/{a}/json")
     suspend fun getArticles(
-        @Path("a") a: Int
+        @Path("a") a: Int,
+        @Query("page_size") pageSize: Int = 20
     ): BaseResponse<ArticleList>
 
     @GET("hotkey/json")

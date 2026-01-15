@@ -69,4 +69,5 @@
     <color name="app_on_secondary">#FFFFFF</color>
     <color name="app_secondary_container">#ECE5FE</color>
     <color name="app_on_secondary_container">#000000</color>
+    <color name="transparent">#0000</color>
 </resources>

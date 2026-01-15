@@ -1,6 +1,10 @@
 package com.example.app_mvvm_kotlin.viewmodel
 
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
+import com.example.app_mvvm_kotlin.entiry.page.ArticlesPagingSource
 import com.example.app_mvvm_kotlin.repositories.HomeRepository
 import com.example.common.entities.state.UiState
 import com.example.model.ApiResult
@@ -40,4 +44,13 @@ class HomeViewModel() : BaseViewModel() {
             }
         }
     }
+
+    val articlesPagingFlow = Pager(
+        config = PagingConfig(
+            pageSize = 20,
+            initialLoadSize = 40,
+            enablePlaceholders = false
+        ),
+        pagingSourceFactory = { ArticlesPagingSource(repository) }
+    ).flow.cachedIn(viewModelScope)
 }

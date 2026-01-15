@@ -5,10 +5,14 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.app_mvvm_kotlin.adapters.ArticlePagingAdapter
 import com.example.app_mvvm_kotlin.databinding.FragmentHomeBinding
 import com.example.app_mvvm_kotlin.viewmodel.HomeViewModel
 import com.example.common.entities.state.UiState
+import com.example.common.extensions.addEqualSpacing
 import com.example.common.ui.fragment.BaseVbFragment
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 /**
@@ -18,21 +22,37 @@ import kotlinx.coroutines.launch
  */
 class HomeFragment : BaseVbFragment<FragmentHomeBinding>() {
     private val viewModel by viewModels<HomeViewModel>()
+    private val mAdapter = ArticlePagingAdapter()
     override fun initView() {
         super.initView()
 
         viewModel.getBanner()
-        viewModel.getArticles(0)
         observeState()
+        initRecyclerView()
     }
 
-    private fun initRecyclerView(){
+    private fun initRecyclerView() {
+        mAdapter.onCollectClick = { isCollect ->
+            // todo 收藏/取消收藏
+        }
+        mAdapter.onItemClick = {
 
+        }
+        binding.rvArticle.adapter = mAdapter
+        binding.rvArticle.addEqualSpacing()
+        binding.rvArticle.layoutManager = LinearLayoutManager(requireContext())
+//        binding.refreshLayout.setOnRefreshListener { mAdapter.refresh() }
     }
+
+    override fun autoLoading() = true
 
     private fun observeState() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.articlesPagingFlow.collectLatest { pagingData ->
+                    loadingFinished()
+                    mAdapter.submitData(pagingData)
+                }
                 viewModel.state.collect { state ->
                     when (state) {
                         UiState.Idle -> Unit
@@ -42,7 +62,7 @@ class HomeFragment : BaseVbFragment<FragmentHomeBinding>() {
 
                         is UiState.Success -> {
                             state.data?.let {
-
+                                // todo 更新banner
                             }
                             loadingFinished()
                         }

@@ -62,5 +62,11 @@ dependencies {
 
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
-    implementation (libs.banner)
+    implementation(libs.banner)
+    implementation(libs.androidx.paging.runtime)
+
+    // 刷新头
+    implementation(libs.refresh.layout.kernel)
+    implementation(libs.refresh.header.classics)
+
 }

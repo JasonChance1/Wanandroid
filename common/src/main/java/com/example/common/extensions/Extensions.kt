@@ -2,16 +2,24 @@ package com.example.common.extensions
 
 import android.app.Activity
 import android.app.Activity.OVERRIDE_TRANSITION_OPEN
+import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
 import android.graphics.Color
 import android.os.Build
 import android.util.TypedValue
 import android.view.View
+import androidx.annotation.ColorRes
+import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
+import androidx.recyclerview.widget.RecyclerView
 import com.example.common.R
 import com.example.model.ApiResult
 import com.example.model.BaseResponse
+import common.rv.EqualSpacingItemDecoration
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 import kotlin.coroutines.cancellation.CancellationException
 
 fun View?.setVisible(isVisible: Boolean) {
@@ -85,4 +93,43 @@ suspend inline fun <T> safeApiCall(
     } catch (t: Throwable) {
         ApiResult.Error(t.message ?: "Network error", t)
     }
+}
+
+val Any?.safeGetStr
+    get() = this?.toString()?:""
+
+fun Long.toDateTimeString(format: String = "yyyy-MM-dd HH:mm:ss"): String {
+    val date = Date(this)
+    val sdf = SimpleDateFormat(format, Locale.getDefault())
+    return sdf.format(date)
+}
+
+
+/**
+ * 添加均匀间距（最常用）
+ * @param spacingDp 间距大小（dp）
+ * @param context Context 用于获取颜色资源
+ * @param colorRes 颜色资源ID（可选）
+ * @param includeEdge 是否包含边缘间距
+ */
+fun RecyclerView.addEqualSpacing(
+    spacingDp: Int = 12,
+    context: Context? = null,
+    @ColorRes colorRes: Int? = null,
+    includeEdge: Boolean = true
+) {
+    // 移除已有的相同装饰器
+    val existing = (0 until itemDecorationCount)
+        .map { getItemDecorationAt(it) }
+        .firstOrNull { it is EqualSpacingItemDecoration }
+    existing?.let { removeItemDecoration(it) }
+
+    val spacingPx = (spacingDp * resources.displayMetrics.density).toInt()
+    val color = if (colorRes != null && context != null) {
+        ContextCompat.getColor(context, colorRes)
+    } else {
+        null
+    }
+
+    addItemDecoration(EqualSpacingItemDecoration(spacingPx, color, includeEdge))
 }
