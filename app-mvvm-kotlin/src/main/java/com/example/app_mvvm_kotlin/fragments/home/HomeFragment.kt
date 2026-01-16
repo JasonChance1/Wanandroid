@@ -4,7 +4,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.app_mvvm_kotlin.adapters.ArticlePagingAdapter
 import com.example.app_mvvm_kotlin.databinding.FragmentHomeBinding
@@ -32,16 +31,17 @@ class HomeFragment : BaseVbFragment<FragmentHomeBinding>() {
     }
 
     private fun initRecyclerView() {
+//        mAdapter.withLoadStateFooter()// 添加footer
         mAdapter.onCollectClick = { isCollect ->
             // todo 收藏/取消收藏
         }
         mAdapter.onItemClick = {
 
         }
+        binding.rvArticle.layoutManager = LinearLayoutManager(requireContext())
         binding.rvArticle.adapter = mAdapter
         binding.rvArticle.addEqualSpacing()
-        binding.rvArticle.layoutManager = LinearLayoutManager(requireContext())
-//        binding.refreshLayout.setOnRefreshListener { mAdapter.refresh() }
+        binding.refreshLayout.setOnRefreshListener { mAdapter.refresh() }
     }
 
     override fun autoLoading() = true
@@ -51,6 +51,7 @@ class HomeFragment : BaseVbFragment<FragmentHomeBinding>() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.articlesPagingFlow.collectLatest { pagingData ->
                     loadingFinished()
+                    binding.refreshLayout.finishRefresh()
                     mAdapter.submitData(pagingData)
                 }
                 viewModel.state.collect { state ->

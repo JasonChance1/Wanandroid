@@ -16,7 +16,7 @@ class ArticlePagingAdapter :
     var onCollectClick: ((isCollect: Boolean) -> Unit) = {}
     var onItemClick: ((item: Article) -> Unit) = {}
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        VH(ItemArticleHomeBinding.inflate(LayoutInflater.from(parent.context)))
+        VH(ItemArticleHomeBinding.inflate(LayoutInflater.from(parent.context), parent, false))
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         getItem(position)?.let { item ->
