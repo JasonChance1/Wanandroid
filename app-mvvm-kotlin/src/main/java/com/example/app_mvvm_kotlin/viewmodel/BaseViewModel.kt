@@ -16,9 +16,8 @@ open class BaseViewModel : ViewModel() {
     protected val _events = MutableSharedFlow<String>()
     val events = _events
 
-
-    protected val _state = MutableStateFlow<UiState<*>>(
+    protected val _state = MutableStateFlow<UiState>(
         UiState.Idle
     )
-    val state: StateFlow<UiState<*>> = _state
+    val state: StateFlow<UiState> = _state
 }

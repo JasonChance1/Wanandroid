@@ -6,11 +6,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.app_mvvm_kotlin.adapters.ArticlePagingAdapter
+import com.example.app_mvvm_kotlin.adapters.HomeBannerAdapter
 import com.example.app_mvvm_kotlin.databinding.FragmentHomeBinding
 import com.example.app_mvvm_kotlin.viewmodel.HomeViewModel
 import com.example.common.entities.state.UiState
 import com.example.common.extensions.addEqualSpacing
 import com.example.common.ui.fragment.BaseVbFragment
+import com.youth.banner.indicator.CircleIndicator
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -24,10 +26,13 @@ class HomeFragment : BaseVbFragment<FragmentHomeBinding>() {
     private val mAdapter = ArticlePagingAdapter()
     override fun initView() {
         super.initView()
-
-        viewModel.getBanner()
+        startLoading()
         observeState()
         initRecyclerView()
+    }
+
+    override fun loadData() {
+        viewModel.getBanner()
     }
 
     private fun initRecyclerView() {
@@ -44,33 +49,33 @@ class HomeFragment : BaseVbFragment<FragmentHomeBinding>() {
         binding.refreshLayout.setOnRefreshListener { mAdapter.refresh() }
     }
 
-    override fun autoLoading() = true
-
     private fun observeState() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.articlesPagingFlow.collectLatest { pagingData ->
-                    loadingFinished()
-                    binding.refreshLayout.finishRefresh()
                     mAdapter.submitData(pagingData)
                 }
+            }
+        }
+
+        viewModel.bannerList.observe(viewLifecycleOwner){
+            binding.banner.setAdapter(HomeBannerAdapter(it))
+                .setIndicator(CircleIndicator(requireContext()))
+        }
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.state.collect { state ->
                     when (state) {
+                        UiState.Loading,
                         UiState.Idle -> Unit
-                        UiState.Loading -> {
-                            startLoading()
-                        }
 
                         is UiState.Success -> {
-                            state.data?.let {
-                                // todo 更新banner
-                            }
+                            binding.refreshLayout.finishRefresh()
                             loadingFinished()
                         }
 
-                        is UiState.Error -> {
-                            showError(state.message)
-                        }
+                        is UiState.Error ->showError()
                     }
                 }
             }
@@ -83,5 +88,23 @@ class HomeFragment : BaseVbFragment<FragmentHomeBinding>() {
                 }
             }
         }
+    }
+
+    override fun doOnOnCreateView() {
+        binding.banner.addBannerLifecycleObserver(this)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        binding.banner.start()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        binding.banner.stop()
+    }
+
+    override fun doOnOnDestroy() {
+        binding.banner.onDestroy(this)
     }
 }

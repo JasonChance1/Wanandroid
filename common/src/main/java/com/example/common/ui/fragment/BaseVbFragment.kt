@@ -19,6 +19,7 @@ import java.lang.reflect.ParameterizedType
  * @author wandervogel
  * @date 2026-01-14  星期三
  * @description
+ * todo 检测网络恢复，恢复后自动加载数据
  */
 abstract class BaseVbFragment<VB : ViewBinding> : Fragment(), IState {
     private var stateImpl: IState? = null
@@ -43,7 +44,12 @@ abstract class BaseVbFragment<VB : ViewBinding> : Fragment(), IState {
     ): View? {
         log("onCreateView")
         _binding = createBinding() ?: createBinding(inflater)
+        doOnOnCreateView()
         return binding.root
+    }
+
+    protected open fun doOnOnCreateView(){
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,6 +60,7 @@ abstract class BaseVbFragment<VB : ViewBinding> : Fragment(), IState {
         } else {
             loadingFinished()
         }
+        loadData()
         initView()
         initData()
     }
@@ -61,7 +68,12 @@ abstract class BaseVbFragment<VB : ViewBinding> : Fragment(), IState {
     override fun onDestroyView() {
         super.onDestroyView()
         log("onDestroyView")
+        doOnOnDestroy()
         _binding = null
+    }
+
+    protected open fun doOnOnDestroy(){
+
     }
 
     protected open fun preprocessing() {
@@ -175,5 +187,9 @@ abstract class BaseVbFragment<VB : ViewBinding> : Fragment(), IState {
 
     private fun log(msg: String) {
         Log.e(tag, "----------$msg----------")
+    }
+
+    protected open fun loadData(){
+
     }
 }

@@ -69,4 +69,6 @@ dependencies {
     implementation(libs.refresh.layout.kernel)
     implementation(libs.refresh.header.classics)
 
+    // glide
+    implementation (libs.glide)
 }

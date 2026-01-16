@@ -1,12 +1,13 @@
 package com.example.app_mvvm_kotlin.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.example.app_mvvm_kotlin.entiry.page.ArticlesPagingSource
 import com.example.app_mvvm_kotlin.repositories.HomeRepository
-import com.example.common.entities.state.UiState
 import com.example.model.ApiResult
 import com.example.model.BannerBean
 import kotlinx.coroutines.launch
@@ -16,34 +17,24 @@ import kotlinx.coroutines.launch
  * @date 2026-01-15  星期四
  * @description
  */
-class HomeViewModel() : BaseViewModel() {
+open class HomeViewModel() : BaseViewModel() {
     private val repository: HomeRepository = HomeRepository()
+
+    private val _bannerList = MutableLiveData<List<BannerBean>>()
+    val bannerList: LiveData<List<BannerBean>> = _bannerList
 
     fun getBanner() {
         viewModelScope.launch {
-            _state.value = UiState.Loading
             when (val r = repository.getBanner()) {
-                is ApiResult.Success -> _state.value = UiState.Success(r.data)
+                is ApiResult.Success -> _bannerList.value = r.data ?: emptyList()
                 is ApiResult.Error -> {
-                    _state.value = UiState.Error(r.message, cause = r.throwable)
+                    _bannerList.value = emptyList()
                     _events.emit(r.message)
                 }
             }
         }
     }
 
-    fun getArticles(page: Int = 0) {
-        viewModelScope.launch {
-            _state.value = UiState.Loading
-            when (val r = repository.getArticles(page)) {
-                is ApiResult.Success -> _state.value = UiState.Success(r.data)
-                is ApiResult.Error -> {
-                    _state.value = UiState.Error(r.message, cause = r.throwable)
-                    _events.emit(r.message)
-                }
-            }
-        }
-    }
 
     val articlesPagingFlow = Pager(
         config = PagingConfig(
@@ -51,6 +42,6 @@ class HomeViewModel() : BaseViewModel() {
             initialLoadSize = 40,
             enablePlaceholders = false
         ),
-        pagingSourceFactory = { ArticlesPagingSource(repository) }
+        pagingSourceFactory = { ArticlesPagingSource(repository, _state) }
     ).flow.cachedIn(viewModelScope)
 }
