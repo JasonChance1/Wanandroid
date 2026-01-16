@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnClickListener
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -52,6 +53,7 @@ abstract class BaseVbActivity<VB : ViewBinding> : AppCompatActivity(), IState {
         } else {
             loadingFinished()
         }
+        initData()
         initView(savedInstanceState)
     }
 

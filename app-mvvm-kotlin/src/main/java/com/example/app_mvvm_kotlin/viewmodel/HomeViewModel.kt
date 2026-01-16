@@ -35,7 +35,6 @@ open class HomeViewModel() : BaseViewModel() {
         }
     }
 
-
     val articlesPagingFlow = Pager(
         config = PagingConfig(
             pageSize = 20,

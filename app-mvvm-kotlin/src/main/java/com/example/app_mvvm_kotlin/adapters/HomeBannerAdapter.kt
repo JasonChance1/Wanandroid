@@ -19,6 +19,7 @@ class HomeBannerAdapter(datas: List<BannerBean>) :
     BannerAdapter<BannerBean, HomeBannerAdapter.ViewHolder>(datas) {
     class ViewHolder(val binding: ItemBannerBinding) : RecyclerView.ViewHolder(binding.root)
 
+    var onItemClick: ((url: String) -> Unit) = {}
     override fun onCreateHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
         ItemBannerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
@@ -28,6 +29,8 @@ class HomeBannerAdapter(datas: List<BannerBean>) :
             Glide.with(ivCover).load(data.imagePath)
                 .placeholder(com.example.common.R.drawable.no_data)
                 .apply(RequestOptions.bitmapTransform(RoundedCorners(30))).into(ivCover)
+
+            root.setOnClickListener { onItemClick.invoke(data.url) }
         }
     }
 }

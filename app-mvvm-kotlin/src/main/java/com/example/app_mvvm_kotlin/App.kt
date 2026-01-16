@@ -13,20 +13,23 @@ import com.example.common_res.R
  * @description application
  */
 class App : Application() {
+    companion object{
+        lateinit var instance: App
+        init {
+            SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, layout ->
+                layout.setPrimaryColorsId(R.color.primary_500)
+                ClassicsHeader(context)
+            }
+            SmartRefreshLayout.setDefaultRefreshFooterCreator { context, layout ->
+                layout.setPrimaryColorsId(R.color.primary_500)
+                ClassicsFooter(context).setDrawableSize(20f)
+            }
+        }
+    }
     override fun onCreate() {
         super.onCreate()
+        instance = this
         DataStoreUtil.init(this)
-        initSmartRefresh()
     }
 
-    private fun initSmartRefresh() {
-        SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, layout ->
-            layout.setPrimaryColorsId(R.color.primary_500)
-            ClassicsHeader(this@App)
-        }
-        SmartRefreshLayout.setDefaultRefreshFooterCreator { context, layout ->
-            layout.setPrimaryColorsId(R.color.primary_500)
-            ClassicsFooter(this@App).setDrawableSize(20f)
-        }
-    }
 }

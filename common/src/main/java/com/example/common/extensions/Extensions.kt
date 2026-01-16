@@ -75,6 +75,7 @@ fun Activity.startActivity(cls: Class<*>) {
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
     }
 }
+
 suspend inline fun <T> safeApiCall(
     crossinline block: suspend () -> BaseResponse<T>
 ): ApiResult<T?> {
@@ -96,7 +97,7 @@ suspend inline fun <T> safeApiCall(
 }
 
 val Any?.safeGetStr
-    get() = this?.toString()?:""
+    get() = this?.toString() ?: ""
 
 fun Long.toDateTimeString(format: String = "yyyy-MM-dd HH:mm:ss"): String {
     val date = Date(this)
@@ -124,12 +125,18 @@ fun RecyclerView.addEqualSpacing(
         .firstOrNull { it is EqualSpacingItemDecoration }
     existing?.let { removeItemDecoration(it) }
 
-    val spacingPx = (spacingDp * resources.displayMetrics.density).toInt()
     val color = if (colorRes != null && context != null) {
         ContextCompat.getColor(context, colorRes)
     } else {
         null
     }
 
-    addItemDecoration(EqualSpacingItemDecoration(spacingPx, color, includeEdge))
+    addItemDecoration(EqualSpacingItemDecoration(spacingDp.dp, color, includeEdge))
 }
+
+val Number.sp: Int
+    get() = (TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_SP,
+        this.toFloat(),
+        Resources.getSystem().displayMetrics
+    ) + 0.5f).toInt()
