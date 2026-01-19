@@ -22,8 +22,9 @@
     <style name="PlayNoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-
+        <item name="backgroundColor">@color/colorBackground</item>
         <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="navigationIconTint">@color/app_on_surface</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>

@@ -54,6 +54,7 @@ abstract class BaseVbFragment<VB : ViewBinding> : Fragment(), IState {
         )
         lp.setMargins(0, if (haveHeadMargin()) 0 else BarUtils.getStatusBarHeight(), 0, 0)
         binding.root.layoutParams = lp
+        frameLayout.setBackgroundColor(resources.getColor(com.example.common_res.R.color.colorBackground,context?.theme))
         frameLayout.addView(binding.root)
         return frameLayout
     }

@@ -55,7 +55,14 @@ abstract class BaseVbActivity<VB : ViewBinding> : AppCompatActivity(), IState {
             enableEdgeToEdge()
         }
         _binding = createBinding() ?: createBinding(layoutInflater)
-        val frameLayout = FrameLayout(this)
+        val frameLayout = FrameLayout(this).apply {
+            setBackgroundColor(
+                resources.getColor(
+                    com.example.common_res.R.color.colorBackground,
+                    theme
+                )
+            )
+        }
         val params = FrameLayout.LayoutParams(
             FrameLayout.LayoutParams.MATCH_PARENT,
             FrameLayout.LayoutParams.MATCH_PARENT
@@ -67,7 +74,7 @@ abstract class BaseVbActivity<VB : ViewBinding> : AppCompatActivity(), IState {
         setContentView(frameLayout)
         BarUtils.setStatusBarColor(
             window,
-            resources.getColor(com.example.common_res.R.color.primary_500, theme)
+            resources.getColor(com.example.common_res.R.color.colorPrimary, theme)
         )
         log("onCreate")
         initState()
