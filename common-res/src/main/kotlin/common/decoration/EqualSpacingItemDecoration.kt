@@ -1,4 +1,4 @@
-package common.rv
+package common.decoration
 
 import android.graphics.Canvas
 import android.graphics.Paint

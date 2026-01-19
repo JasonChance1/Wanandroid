@@ -46,4 +46,47 @@
     <color name="app_on_secondary">#000000</color>
     <color name="app_secondary_container">#462E7B</color>
     <color name="app_on_secondary_container">#FFFFFF</color>
+
+    <color name="grayWhites">#0B0B0B</color>
+
+    <!--筛选框-->
+    <color name="icon_normal">#C3C3C3</color>
+
+    <color name="yellow">#FEC86D</color>
+
+    <color name="colorBackground">#000000</color>
+
+    <color name="floatBackground">#353535</color>
+
+    <color name="login_normal_solid">#ff1E1E21</color>
+    <color name="login_normal_stroke">#14e0e0f0</color>
+    <color name="login_pressed_solid">#060608</color>
+    <color name="login_pressed_stroke">#14e0e0f0</color>
+
+    <color name="exit_login_normal_solid">#C62222</color>
+    <color name="exit_login_normal_stroke">#C62222</color>
+    <color name="exit_login_pressed_solid">#A51818</color>
+    <color name="exit_login_pressed_stroke">#A51818</color>
+
+    <color name="article_bg">#232222</color>
+    <color name="article_pressed">#151515</color>
+
+    <color name="shortcut_icon">#BFBFBF</color>
+
+    <color name="almanac_fragment_content_dividline_color">#FF57575F</color>
+    <color name="lunar_fragment_content_gb">#FF1E1E21</color>
+    <color name="almanac_fragment_content_textcolor1">#FFE0E0F0</color>
+    <color name="almanac_fragment_content_textcolor3">#FD7B72</color>
+
+    <color name="home_bottom_bg_color">#272727</color>
+
+    <color name="article_share_bg">#222222</color>
+    <color name="article_share_item_bg">#2F2F2F</color>
+    <color name="article_share_icon">#E9E9E9</color>
+
+    <color name="home_bottom_mask_start">#00F7F7F7</color>
+    <color name="home_bottom_mask_end">#000000</color>
+
+    <color name="profile_icon">#E9E9E9</color>
+
 </resources>

@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.common.R
 import com.example.model.ApiResult
 import com.example.model.BaseResponse
-import common.rv.EqualSpacingItemDecoration
+import common.decoration.EqualSpacingItemDecoration
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

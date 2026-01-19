@@ -7,11 +7,13 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnClickListener
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.viewbinding.ViewBinding
 import com.example.common.R
 import com.example.common.extensions.transparentStatusBar
@@ -35,6 +37,13 @@ abstract class BaseVbActivity<VB : ViewBinding> : AppCompatActivity(), IState {
         LoadingDialog(this)
     }
     private val tag = this::class.simpleName
+    private val windowInsetsController by lazy {
+        WindowCompat.getInsetsController(
+            window,
+            window.decorView
+        )
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         preprocessing()
@@ -54,6 +63,7 @@ abstract class BaseVbActivity<VB : ViewBinding> : AppCompatActivity(), IState {
             loadingFinished()
         }
         initData()
+        setImmersion()
         initView(savedInstanceState)
     }
 
@@ -167,5 +177,23 @@ abstract class BaseVbActivity<VB : ViewBinding> : AppCompatActivity(), IState {
 
     protected open fun hideLoading() {
         loadingDialog.hide()
+    }
+
+    protected open fun isImmersion(): Boolean = false
+
+    private fun setImmersion() {
+        if (isImmersion()) {
+            hideBar()
+        }
+    }
+
+    open fun hideBar() {
+        windowInsetsController.systemBarsBehavior =
+            WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())// 隐藏状态栏
+    }
+
+    open fun showBar() {
+        windowInsetsController.show(WindowInsetsCompat.Type.systemBars())// 隐藏状态栏
     }
 }

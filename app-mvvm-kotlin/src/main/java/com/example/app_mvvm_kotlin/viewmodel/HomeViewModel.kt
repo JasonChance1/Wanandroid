@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
-import com.example.app_mvvm_kotlin.entiry.page.ArticlesPagingSource
+import com.example.app_mvvm_kotlin.page.ArticlesPagingSource
 import com.example.app_mvvm_kotlin.repositories.HomeRepository
 import com.example.model.ApiResult
 import com.example.model.BannerBean

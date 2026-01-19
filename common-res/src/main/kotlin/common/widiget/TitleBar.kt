@@ -2,6 +2,7 @@ package common.widiget
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -47,6 +48,7 @@ class TitleBar @JvmOverloads constructor(
     init {
         // 设置方向为水平
         orientation = HORIZONTAL
+        gravity = Gravity.CENTER
 
         // 加载布局
         LayoutInflater.from(context).inflate(R.layout.layout_title_bar, this, true)
@@ -71,7 +73,7 @@ class TitleBar @JvmOverloads constructor(
             title = typedArray.getString(R.styleable.TitleBar_title)
             icon1ResId = typedArray.getResourceId(R.styleable.TitleBar_icon1, 0)
             icon2ResId = typedArray.getResourceId(R.styleable.TitleBar_icon2, 0)
-            backIconResId = typedArray.getResourceId(R.styleable.TitleBar_backIcon, 0)
+            backIconResId = typedArray.getResourceId(R.styleable.TitleBar_backIcon,  R.drawable.ic_back)
             iconSize = typedArray.getDimension(R.styleable.TitleBar_iconSize, 0f)
             backIconSize = typedArray.getDimension(R.styleable.TitleBar_backIconSize, 0f)
 

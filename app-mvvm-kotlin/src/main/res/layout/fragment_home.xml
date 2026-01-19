@@ -3,16 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <common.widiget.TitleBar
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_48"
+        android:layout_height="wrap_content"
+        android:background="@color/primary_500"
+        android:paddingHorizontal="@dimen/dp_16"
+        app:icon1="@drawable/ic_search"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:title="测试" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <com.youth.banner.Banner
@@ -36,10 +39,10 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_article"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/banner"
-            android:layout_height="wrap_content" />
+            app:layout_constraintTop_toBottomOf="@+id/banner" />
     </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

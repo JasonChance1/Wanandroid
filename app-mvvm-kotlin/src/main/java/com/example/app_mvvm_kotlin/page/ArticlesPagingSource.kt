@@ -1,4 +1,4 @@
-package com.example.app_mvvm_kotlin.entiry.page
+package com.example.app_mvvm_kotlin.page
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState

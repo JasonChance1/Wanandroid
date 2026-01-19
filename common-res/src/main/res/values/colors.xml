@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#25C84C</color>
-    <color name="colorPrimaryDark">#25C84C</color>
-    <color name="colorAccent">#41DF67</color>
-    <color name="colorLoading">#41DF67</color>
+    <color name="colorPrimary">@color/primary_500</color>
+    <color name="colorPrimaryDark">@color/primary_500</color>
+    <color name="colorAccent">@color/primary_400</color>
+    <color name="colorLoading">@color/primary_400</color>
     <!-- 白色 -->
     <color name="white">#ffffff</color>
     <!-- 浅白色 -->
@@ -11,7 +11,7 @@
     <!-- 字体颜色 -->
     <color name="text_color_dark">#464646</color>
     <color name="text_color">#5A5A5A</color>
-    <color name="icon_selected">#25C84C</color>
+    <color name="icon_selected">@color/colorPrimary</color>
     <color name="text_color_black">#202020</color>
     <!-- 下拉刷新颜色 -->
     <color name="refresh">#F8F8F8</color>
@@ -70,4 +70,47 @@
     <color name="app_secondary_container">#ECE5FE</color>
     <color name="app_on_secondary_container">#000000</color>
     <color name="transparent">#0000</color>
+
+    <!-- 灰白 -->
+    <color name="grayWhites">#F8F8F8</color>
+
+    <!--筛选框-->
+    <color name="icon_normal">#D1D1D1</color>
+
+    <color name="yellow">#FEC86D</color>
+
+    <color name="colorBackground">#F4F4F4</color>
+
+    <color name="floatBackground">#FAFAFA</color>
+
+    <color name="login_normal_solid">#ffffffff</color>
+    <color name="login_normal_stroke">#ffe0e0e0</color>
+    <color name="login_pressed_solid">#ededed</color>
+    <color name="login_pressed_stroke">#ededed</color>
+
+    <color name="exit_login_normal_solid">#FA2525</color>
+    <color name="exit_login_normal_stroke">#FA2525</color>
+    <color name="exit_login_pressed_solid">#D61616</color>
+    <color name="exit_login_pressed_stroke">#D61616</color>
+
+    <color name="article_bg">#FDFDFD</color>
+    <color name="article_pressed">#F1F1F1</color>
+
+    <color name="shortcut_icon">#252525</color>
+
+    <color name="almanac_fragment_content_dividline_color">#CDCDCD</color>
+    <color name="lunar_fragment_content_gb">#FFFFFF</color>
+    <color name="almanac_fragment_content_textcolor1">#333333</color>
+    <color name="almanac_fragment_content_textcolor3">#FF675C</color>
+
+    <color name="home_bottom_bg_color">#272727</color>
+
+    <color name="article_share_bg">#F7F7F7</color>
+    <color name="article_share_item_bg">#ffffff</color>
+    <color name="article_share_icon">#000000</color>
+
+    <color name="home_bottom_mask_start">#00F7F7F7</color>
+    <color name="home_bottom_mask_end">#F7F7F7</color>
+
+    <color name="profile_icon">#000000</color>
 </resources>

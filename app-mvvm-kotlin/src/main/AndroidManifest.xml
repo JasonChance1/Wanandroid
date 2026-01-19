@@ -15,6 +15,7 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".activities.home.MainActivity"
+            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,9 +24,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.auth.LoginActivity" />
-        <activity android:name=".activities.auth.RegisterActivity" />
-        <activity android:name=".activities.DetailArticleActivity" />
+        <activity
+            android:name=".activities.auth.LoginActivity"
+            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
+        <activity
+            android:name=".activities.auth.RegisterActivity"
+            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
+        <activity
+            android:name=".activities.DetailArticleActivity"
+            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
     </application>
 
 </manifest>

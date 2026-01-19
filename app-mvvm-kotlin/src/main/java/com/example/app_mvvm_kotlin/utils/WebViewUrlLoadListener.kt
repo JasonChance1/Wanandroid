@@ -1,16 +1,8 @@
-package com.example.common.extensions
+package com.example.app_mvvm_kotlin.utils
 
-import android.webkit.WebView
-
-/**
- * @author wandervogel
- * @date 2026-01-06  星期二
- * @description
- */
 import android.net.http.SslError
-import android.os.Build
 import android.webkit.*
-import androidx.annotation.RequiresApi
+import android.webkit.WebView
 
 /**
  * WebView URL 加载状态监听器
@@ -42,12 +34,12 @@ fun WebView.loadUrl(
 ) {
     // 配置 WebView 设置
     setupWebViewConfig(config)
-
+    
     // 开始加载回调
     config.loadListener?.onLoadStarted()
-
+    
     // 加载 URL
-    if (config.headers != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+    if (config.headers != null) {
         this.loadUrl(url, config.headers)
     } else {
         this.loadUrl(url)
@@ -60,7 +52,7 @@ fun WebView.loadUrl(
 private fun WebView.setupWebViewConfig(config: UrlLoadConfig) {
     // 保存原有的设置
     val settings = this.settings
-
+    
     // 启用基本功能
     settings.javaScriptEnabled = config.enableJavaScript
     settings.domStorageEnabled = true
@@ -68,13 +60,13 @@ private fun WebView.setupWebViewConfig(config: UrlLoadConfig) {
     settings.useWideViewPort = true
     settings.builtInZoomControls = true
     settings.displayZoomControls = false
-
+    
     // 根据配置设置缓存策略
     settings.cacheMode = WebSettings.LOAD_DEFAULT
-
+    
     // 设置 WebViewClient 来监听加载状态
     this.webViewClient = createWebViewClient(config)
-
+    
     // 设置 WebChromeClient 来监听进度
     this.webChromeClient = createWebChromeClient(config)
 }
@@ -88,14 +80,12 @@ private fun createWebViewClient(config: UrlLoadConfig): WebViewClient {
             super.onPageStarted(view, url, favicon)
             config.loadListener?.onLoadStarted()
         }
-
+        
         override fun onPageFinished(view: WebView?, url: String?) {
             super.onPageFinished(view, url)
             config.loadListener?.onLoadFinished()
         }
 
-        // API 23+ 的错误回调
-        @RequiresApi(Build.VERSION_CODES.M)
         override fun onReceivedError(
             view: WebView?,
             request: WebResourceRequest?,
@@ -103,31 +93,15 @@ private fun createWebViewClient(config: UrlLoadConfig): WebViewClient {
         ) {
             super.onReceivedError(view, request, error)
             if (request?.isForMainFrame == true) {
-                val errorCode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                val errorCode =
                     error?.errorCode
-                } else {
-                    null
-                }
-                val description = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                val description =
                     error?.description?.toString()
-                } else {
-                    null
-                }
                 config.loadListener?.onLoadError(errorCode, description)
             }
         }
 
-        // API 23 以下的错误回调
-        @Deprecated("Deprecated in API level 23")
-        override fun onReceivedError(
-            view: WebView?,
-            errorCode: Int,
-            description: String?,
-            failingUrl: String?
-        ) {
-            super.onReceivedError(view, errorCode, description, failingUrl)
-        }
-
+        
         // SSL 错误处理
         override fun onReceivedSslError(
             view: WebView?,
@@ -145,13 +119,13 @@ private fun createWebViewClient(config: UrlLoadConfig): WebViewClient {
                 )
             }
         }
-
+        
         // 拦截资源请求（例如阻止图片加载）
         override fun shouldInterceptRequest(
             view: WebView?,
             request: WebResourceRequest?
         ): WebResourceResponse? {
-            if (config.blockNetworkImage && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (config.blockNetworkImage) {
                 request?.let {
                     if (it.url.toString().matches(Regex(".*\\.(jpg|jpeg|png|gif|webp)$", RegexOption.IGNORE_CASE))) {
                         // 阻止网络图片加载，可以返回空或本地占位图
@@ -162,7 +136,7 @@ private fun createWebViewClient(config: UrlLoadConfig): WebViewClient {
             return super.shouldInterceptRequest(view, request)
         }
 
-        @Deprecated("Deprecated in API level 21")
+        @Deprecated("Deprecated in Java")
         override fun shouldInterceptRequest(
             view: WebView?,
             url: String?
@@ -188,13 +162,13 @@ private fun createWebChromeClient(config: UrlLoadConfig): WebChromeClient {
             super.onProgressChanged(view, newProgress)
             config.loadListener?.onLoadProgress(newProgress)
         }
-
+        
         // 可以添加更多 ChromeClient 的回调
         override fun onReceivedTitle(view: WebView?, title: String?) {
             super.onReceivedTitle(view, title)
             // 如果需要可以在这里处理标题
         }
-
+        
         override fun onReceivedIcon(view: WebView?, icon: android.graphics.Bitmap?) {
             super.onReceivedIcon(view, icon)
             // 处理网站图标
