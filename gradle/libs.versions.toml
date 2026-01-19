@@ -28,6 +28,7 @@ lifecycleViewmodelAndroid = "2.9.3"
 pagingRuntime = "3.3.6"
 refreshHeaderClassics = "3.0.0-alpha"
 refreshLayoutKernel = "3.0.0-alpha"
+utilcodex = "1.31.1"
 
 [libraries]
 adapter-rxjava2 = { module = "com.squareup.retrofit2:adapter-rxjava2", version.ref = "adapterRxjava2" }
@@ -65,6 +66,7 @@ refresh-layout-kernel = { module = "io.github.scwang90:refresh-layout-kernel", v
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "converterGson" }
 androidx-datastore-core-android = { group = "androidx.datastore", name = "datastore-core-android", version.ref = "datastoreCoreAndroid" }
 androidx-lifecycle-viewmodel-android = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-android", version.ref = "lifecycleViewmodelAndroid" }
+utilcodex = { module = "com.blankj:utilcodex", version.ref = "utilcodex" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

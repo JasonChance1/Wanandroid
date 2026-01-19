@@ -15,6 +15,7 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.viewbinding.ViewBinding
+import com.blankj.utilcode.util.BarUtils
 import com.example.common.R
 import com.example.common.extensions.transparentStatusBar
 import com.example.common.ui.dialog.LoadingDialog
@@ -54,7 +55,20 @@ abstract class BaseVbActivity<VB : ViewBinding> : AppCompatActivity(), IState {
             enableEdgeToEdge()
         }
         _binding = createBinding() ?: createBinding(layoutInflater)
-        setContentView(binding.root)
+        val frameLayout = FrameLayout(this)
+        val params = FrameLayout.LayoutParams(
+            FrameLayout.LayoutParams.MATCH_PARENT,
+            FrameLayout.LayoutParams.MATCH_PARENT
+        ).apply {
+            setMargins(0, BarUtils.getStatusBarHeight(), 0, 0)
+        }
+        binding.root.layoutParams = params
+        frameLayout.addView(binding.root)
+        setContentView(frameLayout)
+        BarUtils.setStatusBarColor(
+            window,
+            resources.getColor(com.example.common_res.R.color.primary_500, theme)
+        )
         log("onCreate")
         initState()
         if (autoLoading()) {

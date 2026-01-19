@@ -10,6 +10,7 @@ import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import com.blankj.utilcode.util.BarUtils
 import com.example.common.ui.dialog.LoadingDialog
 import com.example.common.ui.state.DefaultStateImpl
 import com.example.common.ui.state.IState
@@ -25,7 +26,8 @@ abstract class BaseVbFragment<VB : ViewBinding> : Fragment(), IState {
     private var stateImpl: IState? = null
     private var _binding: VB? = null
     protected val binding: VB
-        get() = _binding ?: throw IllegalStateException("Binding should not be accessed after onDestroyView()")
+        get() = _binding
+            ?: throw IllegalStateException("Binding should not be accessed after onDestroyView()")
 
     private val loadingDialog by lazy {
         LoadingDialog(requireContext())
@@ -45,10 +47,18 @@ abstract class BaseVbFragment<VB : ViewBinding> : Fragment(), IState {
         log("onCreateView")
         _binding = createBinding() ?: createBinding(inflater)
         doOnOnCreateView()
-        return binding.root
+        val frameLayout = FrameLayout(requireContext())
+        val lp = FrameLayout.LayoutParams(
+            FrameLayout.LayoutParams.MATCH_PARENT,
+            FrameLayout.LayoutParams.MATCH_PARENT
+        )
+        lp.setMargins(0, if (haveHeadMargin()) 0 else BarUtils.getStatusBarHeight(), 0, 0)
+        binding.root.layoutParams = lp
+        frameLayout.addView(binding.root)
+        return frameLayout
     }
 
-    protected open fun doOnOnCreateView(){
+    protected open fun doOnOnCreateView() {
 
     }
 
@@ -72,7 +82,7 @@ abstract class BaseVbFragment<VB : ViewBinding> : Fragment(), IState {
         _binding = null
     }
 
-    protected open fun doOnOnDestroy(){
+    protected open fun doOnOnDestroy() {
 
     }
 
@@ -189,7 +199,12 @@ abstract class BaseVbFragment<VB : ViewBinding> : Fragment(), IState {
         Log.e(tag, "----------$msg----------")
     }
 
-    protected open fun loadData(){
+    protected open fun loadData() {
 
     }
+
+    /**
+     * 继承baseActivity都为true
+     */
+    protected open fun haveHeadMargin() = true
 }

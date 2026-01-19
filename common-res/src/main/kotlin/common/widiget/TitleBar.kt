@@ -1,7 +1,9 @@
 package common.widiget
 
 import android.content.Context
+import android.content.res.Resources
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.widget.ImageView
@@ -52,7 +54,8 @@ class TitleBar @JvmOverloads constructor(
 
         // 加载布局
         LayoutInflater.from(context).inflate(R.layout.layout_title_bar, this, true)
-
+        setBackgroundColor(resources.getColor(R.color.colorPrimary, context.theme))
+        setPadding(12.dp, 8.dp, 16.dp, 8.dp)
         // 初始化View
         tvTitle = findViewById(R.id.tv_title)
         ivBack = findViewById(R.id.iv_back)
@@ -73,7 +76,8 @@ class TitleBar @JvmOverloads constructor(
             title = typedArray.getString(R.styleable.TitleBar_title)
             icon1ResId = typedArray.getResourceId(R.styleable.TitleBar_icon1, 0)
             icon2ResId = typedArray.getResourceId(R.styleable.TitleBar_icon2, 0)
-            backIconResId = typedArray.getResourceId(R.styleable.TitleBar_backIcon,  R.drawable.ic_back)
+            backIconResId =
+                typedArray.getResourceId(R.styleable.TitleBar_backIcon, R.drawable.ic_back)
             iconSize = typedArray.getDimension(R.styleable.TitleBar_iconSize, 0f)
             backIconSize = typedArray.getDimension(R.styleable.TitleBar_backIconSize, 0f)
 
@@ -316,4 +320,15 @@ class TitleBar @JvmOverloads constructor(
         text1Color = color
         tvText1.setTextColor(color)
     }
+
+    fun setBackVisible(visible: Boolean) {
+        ivBack.isVisible = visible
+    }
+
+    private val Int.dp
+        get() = (TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            this.toFloat(),
+            Resources.getSystem().displayMetrics
+        ) + 0.5f).toInt()
 }

@@ -55,4 +55,5 @@ dependencies {
 
     implementation(libs.lottie)
     implementation(libs.logginginterceptor)
+    implementation (libs.utilcodex)
 }
