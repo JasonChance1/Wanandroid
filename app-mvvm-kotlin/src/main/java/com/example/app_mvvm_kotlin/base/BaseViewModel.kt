@@ -1,4 +1,4 @@
-package com.example.app_mvvm_kotlin.viewmodel
+package com.example.app_mvvm_kotlin.base
 
 import androidx.lifecycle.ViewModel
 import com.example.common.entities.state.UiState

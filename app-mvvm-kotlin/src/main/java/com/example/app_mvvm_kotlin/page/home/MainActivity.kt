@@ -1,4 +1,4 @@
-package com.example.app_mvvm_kotlin.activities.home
+package com.example.app_mvvm_kotlin.page.home
 
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback

@@ -1,8 +1,7 @@
-package com.example.app_mvvm_kotlin.viewmodel
+package com.example.app_mvvm_kotlin.page.auth
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.app_mvvm_kotlin.repositories.AuthRepository
 import com.example.common.constant.DSConstant
 import com.example.common.entities.event.LoginEvent
 import com.example.common.entities.state.LoginUiState

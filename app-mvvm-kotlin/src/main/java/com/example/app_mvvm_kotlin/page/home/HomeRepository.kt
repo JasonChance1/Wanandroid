@@ -1,4 +1,4 @@
-package com.example.app_mvvm_kotlin.repositories
+package com.example.app_mvvm_kotlin.page.home
 
 import com.example.common.extensions.safeApiCall
 import com.example.common.net.CoreRetrofit

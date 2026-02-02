@@ -1,4 +1,4 @@
-package com.example.app_mvvm_kotlin.activities.auth
+package com.example.app_mvvm_kotlin.page.auth
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,9 +8,8 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.example.app_mvvm_kotlin.activities.home.MainActivity
+import com.example.app_mvvm_kotlin.page.home.MainActivity
 import com.example.app_mvvm_kotlin.databinding.ActivityLoginBinding
-import com.example.app_mvvm_kotlin.viewmodel.LoginViewModel
 import com.example.common.constant.DSConstant
 import com.example.common.entities.event.LoginEvent
 import com.example.common.ui.activity.BaseVbActivity

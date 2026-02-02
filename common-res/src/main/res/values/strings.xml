@@ -10,4 +10,27 @@
     <string name="confirm_password">确认密码</string>
     <string name="login">登录</string>
     <string name="collect">收藏</string>
+    <string name="profile_avatar">头像</string>
+    <string name="profile_username_default">未登录</string>
+    <string name="profile_subtitle_default">点击此处登录</string>
+    <string name="profile_points">我的积分</string>
+    <string name="profile_points_detail">明细</string>
+
+    <string name="profile_rank">排行榜</string>
+    <string name="profile_rank_sub">看看你排第几</string>
+
+    <string name="profile_collect">我的收藏</string>
+    <string name="profile_collect_sub">你收藏的内容都在这</string>
+
+    <string name="profile_history">浏览历史</string>
+    <string name="profile_history_sub">最近看过什么</string>
+
+    <string name="profile_about">关于我</string>
+    <string name="profile_about_sub">版本信息与协议</string>
+
+    <string name="profile_logout">退出登录</string>
+
+    <string name="profile_action_icon">功能图标</string>
+    <string name="profile_action_arrow">进入</string>
+
 </resources>

@@ -1,4 +1,4 @@
-package com.example.app_mvvm_kotlin.activities.auth
+package com.example.app_mvvm_kotlin.page.auth
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,7 +8,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.app_mvvm_kotlin.databinding.ActivityRegisterBinding
-import com.example.app_mvvm_kotlin.viewmodel.RegisterViewModel
 import com.example.common.entities.event.RegisterEvent
 import com.example.common.ui.activity.BaseVbActivity
 import kotlinx.coroutines.launch

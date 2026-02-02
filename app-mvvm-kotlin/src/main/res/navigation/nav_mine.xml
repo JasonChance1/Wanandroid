@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/mineFragment"
-        android:name="com.example.app_mvvm_kotlin.fragments.mine.MineFragment"
+        android:name="com.example.app_mvvm_kotlin.page.profile.MineFragment"
         android:label="MineFragment" />
 </navigation>

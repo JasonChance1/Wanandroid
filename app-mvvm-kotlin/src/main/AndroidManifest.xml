@@ -14,7 +14,7 @@
         android:theme="@style/PlayNoActionBar"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".activities.home.MainActivity"
+            android:name=".page.home.MainActivity"
             android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize"
             android:exported="true">
             <intent-filter>
@@ -25,13 +25,13 @@
         </activity>
 
         <activity
-            android:name=".activities.auth.LoginActivity"
+            android:name=".page.auth.LoginActivity"
             android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
         <activity
-            android:name=".activities.auth.RegisterActivity"
+            android:name=".page.auth.RegisterActivity"
             android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
         <activity
-            android:name=".activities.DetailArticleActivity"
+            android:name=".page.article.DetailArticleActivity"
             android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
     </application>
 

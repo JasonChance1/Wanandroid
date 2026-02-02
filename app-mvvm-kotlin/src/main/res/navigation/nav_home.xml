@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.app_mvvm_kotlin.fragments.home.HomeFragment"/>
+        android:name="com.example.app_mvvm_kotlin.page.home.HomeFragment"/>
 
 </navigation>

@@ -1,4 +1,4 @@
-package com.example.app_mvvm_kotlin.activities
+package com.example.app_mvvm_kotlin.page.article
 
 import android.os.Bundle
 import com.example.app_mvvm_kotlin.databinding.ActivityDetailArticleBinding

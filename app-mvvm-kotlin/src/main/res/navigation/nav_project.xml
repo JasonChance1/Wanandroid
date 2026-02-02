@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/projectFragment"
-        android:name="com.example.app_mvvm_kotlin.fragments.project.ProjectFragment"
+        android:name="com.example.app_mvvm_kotlin.page.project.ProjectFragment"
         android:label="ProjectFragment" />
 </navigation>

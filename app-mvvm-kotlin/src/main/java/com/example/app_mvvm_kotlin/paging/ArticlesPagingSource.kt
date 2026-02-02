@@ -1,8 +1,8 @@
-package com.example.app_mvvm_kotlin.page
+package com.example.app_mvvm_kotlin.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.app_mvvm_kotlin.repositories.HomeRepository
+import com.example.app_mvvm_kotlin.page.home.HomeRepository
 import com.example.common.entities.state.UiState
 import com.example.model.ApiResult
 import com.example.model.Article

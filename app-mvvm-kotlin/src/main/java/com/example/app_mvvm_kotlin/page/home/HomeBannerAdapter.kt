@@ -1,4 +1,4 @@
-package com.example.app_mvvm_kotlin.adapters
+package com.example.app_mvvm_kotlin.page.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

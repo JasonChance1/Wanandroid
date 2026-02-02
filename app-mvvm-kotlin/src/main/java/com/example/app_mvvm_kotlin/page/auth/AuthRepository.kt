@@ -1,4 +1,4 @@
-package com.example.app_mvvm_kotlin.repositories
+package com.example.app_mvvm_kotlin.page.auth
 
 import com.example.common.net.CoreRetrofit
 import com.example.common.net.service.LoginService

@@ -1,4 +1,4 @@
-package com.example.app_mvvm_kotlin.fragments.home
+package com.example.app_mvvm_kotlin.page.home
 
 import android.os.Bundle
 import android.view.View
@@ -7,11 +7,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.app_mvvm_kotlin.activities.DetailArticleActivity
+import com.example.app_mvvm_kotlin.page.article.DetailArticleActivity
 import com.example.app_mvvm_kotlin.adapters.ArticlePagingAdapter
-import com.example.app_mvvm_kotlin.adapters.HomeBannerAdapter
 import com.example.app_mvvm_kotlin.databinding.FragmentHomeBinding
-import com.example.app_mvvm_kotlin.viewmodel.HomeViewModel
 import com.example.common.constant.IntentConstant
 import com.example.common.entities.state.UiState
 import com.example.common.extensions.addEqualSpacing

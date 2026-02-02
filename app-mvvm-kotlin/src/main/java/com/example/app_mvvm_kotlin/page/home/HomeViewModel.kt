@@ -1,4 +1,4 @@
-package com.example.app_mvvm_kotlin.viewmodel
+package com.example.app_mvvm_kotlin.page.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,8 +6,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
-import com.example.app_mvvm_kotlin.page.ArticlesPagingSource
-import com.example.app_mvvm_kotlin.repositories.HomeRepository
+import com.example.app_mvvm_kotlin.paging.ArticlesPagingSource
+import com.example.app_mvvm_kotlin.base.BaseViewModel
 import com.example.model.ApiResult
 import com.example.model.BannerBean
 import kotlinx.coroutines.launch

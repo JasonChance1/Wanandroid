@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/systemFragment"
-        android:name="com.example.app_mvvm_kotlin.fragments.system.SystemFragment"
+        android:name="com.example.app_mvvm_kotlin.page.system.SystemFragment"
         android:label="SystemFragment" />
 </navigation>

@@ -1,6 +1,7 @@
-package com.example.app_mvvm_kotlin.fragments.system
+package com.example.app_mvvm_kotlin.page.system
 
 import com.example.app_mvvm_kotlin.databinding.FragmentMineBinding
+import com.example.app_mvvm_kotlin.databinding.FragmentSystemBinding
 import com.example.common.ui.fragment.BaseVbFragment
 
 /**
@@ -8,6 +9,6 @@ import com.example.common.ui.fragment.BaseVbFragment
  * @date 2026-01-14  星期三
  * @description
  */
-class SystemFragment :BaseVbFragment<FragmentMineBinding>() {
+class SystemFragment :BaseVbFragment<FragmentSystemBinding>() {
 
 }
