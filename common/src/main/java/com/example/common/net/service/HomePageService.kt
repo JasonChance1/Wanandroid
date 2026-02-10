@@ -37,5 +37,4 @@ interface HomePageService {
         @Path("page") page: Int,
         @Query("k") k: String
     ): BaseResponse<ArticleList>
-
 }

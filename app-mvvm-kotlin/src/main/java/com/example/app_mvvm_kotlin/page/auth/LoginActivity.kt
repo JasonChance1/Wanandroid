@@ -74,8 +74,6 @@ class LoginActivity : BaseVbActivity<ActivityLoginBinding>() {
                     when (e) {
                         is LoginEvent.Toast -> toast(e.msg)
                         is LoginEvent.LoginSuccess -> {
-                            e.login
-                            DataStoreUtil.putSync(DSConstant.USERNAME, binding.etUsername.text.toString())
                             startActivity(MainActivity::class.java)
                         }
 

@@ -13,7 +13,7 @@ import com.example.model.Article
 class ArticlePagingAdapter :
     PagingDataAdapter<Article, ArticlePagingAdapter.VH>(DIFF) {
 
-    var onCollectClick: ((isCollect: Boolean) -> Unit) = {}
+    var onCollectClick: ((isCollect: Boolean, id: Int) -> Unit) = { _, _ -> }
     var onItemClick: ((item: Article) -> Unit) = {}
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         VH(ItemArticleHomeBinding.inflate(LayoutInflater.from(parent.context), parent, false))
@@ -29,7 +29,7 @@ class ArticlePagingAdapter :
 
                 ivCollect.setOnClickListener {
                     ivCollect.isSelected = !ivCollect.isSelected
-                    onCollectClick.invoke(ivCollect.isSelected)
+                    onCollectClick.invoke(ivCollect.isSelected, item.id)
                 }
                 root.setOnClickListener {
                     onItemClick.invoke(item)

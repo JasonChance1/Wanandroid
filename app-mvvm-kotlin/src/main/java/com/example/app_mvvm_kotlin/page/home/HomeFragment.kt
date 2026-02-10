@@ -39,8 +39,12 @@ class HomeFragment : BaseVbFragment<FragmentHomeBinding>() {
 
     private fun initRecyclerView() {
 //        mAdapter.withLoadStateFooter()// 添加footer
-        mAdapter.onCollectClick = { isCollect ->
-            // todo 收藏/取消收藏
+        mAdapter.onCollectClick = { isCollect, id ->
+            if (isCollect) {
+                viewModel.collect(id)
+            } else {
+                viewModel.cancelCollect(id)
+            }
         }
         mAdapter.onItemClick = {
             toDetail(it.link)

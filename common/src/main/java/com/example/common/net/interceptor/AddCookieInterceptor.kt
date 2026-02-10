@@ -12,7 +12,7 @@ class AddCookieInterceptor : Interceptor {
         val domain = request.url.host
         if (domain.isNotEmpty()) {
             val spDomain: String = DataStoreUtil.getSync(domain, "")
-            val cookie: String = spDomain.ifEmpty { "" }
+            val cookie: String = spDomain.ifEmpty { DataStoreUtil.getSync(COOKIE_NAME,"") }
             if (cookie.isNotEmpty()) {
                 builder.addHeader(COOKIE_NAME, cookie)
             }

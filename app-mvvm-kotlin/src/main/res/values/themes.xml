@@ -19,7 +19,7 @@
         <item name="windowSplashScreenAnimationDuration">200</item>
     </style>
 
-    <style name="PlayNoActionBar" parent="Theme.MaterialComponents">
+    <style name="PlayNoActionBar" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="backgroundColor">@color/colorBackground</item>

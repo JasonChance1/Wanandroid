@@ -10,5 +10,7 @@ import com.example.common.ui.fragment.BaseVbFragment
  * @description
  */
 class ProjectFragment :BaseVbFragment<FragmentProjectBinding>() {
-
+    override fun initView() {
+        super.initView()
+    }
 }

@@ -43,4 +43,25 @@ open class HomeViewModel() : BaseViewModel() {
         ),
         pagingSourceFactory = { ArticlesPagingSource(repository, _state) }
     ).flow.cachedIn(viewModelScope)
+
+    fun collect(id: Int) {
+        viewModelScope.launch {
+            when (val r = repository.collect(id)) {
+                is ApiResult.Success -> {}
+                is ApiResult.Error -> {
+                    _events.emit(r.message)
+                }
+            }
+        }
+    }
+    fun cancelCollect(id: Int) {
+        viewModelScope.launch {
+            when (val r = repository.cancelCollect(id)) {
+                is ApiResult.Success -> {}
+                is ApiResult.Error -> {
+                    _events.emit(r.message)
+                }
+            }
+        }
+    }
 }

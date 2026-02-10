@@ -57,6 +57,8 @@ class LoginViewModel(
                 is ApiResult.Success -> {
                     _uiState.update { it.copy(loading = false) }
                     _event.send(LoginEvent.LoginSuccess(r.data))
+                    DataStoreUtil.putData(DSConstant.USERNAME, username)
+                    DataStoreUtil.putData(DSConstant.PASSWORD, password)
                 }
 
                 is ApiResult.Error -> {

@@ -86,6 +86,7 @@
                 android:layout_marginTop="@dimen/dp_24"
                 android:text="@string/login"
                 android:textSize="16sp"
+                android:textColor="@color/white"
                 app:cornerRadius="@dimen/dp_24"
                 app:backgroundTint="@color/primary_500" />
 
