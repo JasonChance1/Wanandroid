@@ -44,7 +44,7 @@ class ProjectFragment : BaseVbFragment<FragmentProjectBinding>() {
                 })
                 binding.viewPager.adapter = pagerAdapter
                 val titles = list.map { it.name }
-                binding.viewPager.offscreenPageLimit = 3
+                binding.viewPager.offscreenPageLimit = 2
                 TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, pos ->
                     tab.text = titles.get(pos)
                 }.attach()

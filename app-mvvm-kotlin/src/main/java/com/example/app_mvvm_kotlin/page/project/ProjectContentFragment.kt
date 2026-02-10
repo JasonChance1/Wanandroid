@@ -3,6 +3,7 @@ package com.example.app_mvvm_kotlin.page.project
 import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,8 +26,8 @@ import kotlinx.coroutines.launch
 class ProjectContentFragment : BaseVbFragment<FragmentProjectContentBinding>() {
     private var cid = 0
     private var titleName: String = ""
-    private val viewModel by viewModels<ProjectViewModel>()
-    private val homeViewModel by viewModels<HomeViewModel>()
+    private lateinit var viewModel:ProjectViewModel
+    private lateinit var homeViewModel:HomeViewModel
     private lateinit var articleAdapter: ArticlePagingAdapter
 
     companion object {
@@ -39,6 +40,8 @@ class ProjectContentFragment : BaseVbFragment<FragmentProjectContentBinding>() {
     }
 
     override fun initData() {
+        viewModel = ViewModelProvider(requireActivity())[ProjectViewModel::class]
+        homeViewModel = ViewModelProvider(requireActivity())[HomeViewModel::class]
         arguments?.let {
             cid = it.getInt(IntentConstant.KEY_1)
             titleName = it.getString(IntentConstant.KEY_2, "")
