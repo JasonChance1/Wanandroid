@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-
+    <style name="TabLayoutTextStyle">
+        <item name="android:textSize">@dimen/sp_14</item>
+    </style>
 </resources>

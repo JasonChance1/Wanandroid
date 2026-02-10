@@ -28,7 +28,7 @@ abstract class BaseVbFragment<VB : ViewBinding> : Fragment(), IState {
     protected val binding: VB
         get() = _binding
             ?: throw IllegalStateException("Binding should not be accessed after onDestroyView()")
-
+    private lateinit var rootGroup:FrameLayout
     private val loadingDialog by lazy {
         LoadingDialog(requireContext())
     }
@@ -45,18 +45,18 @@ abstract class BaseVbFragment<VB : ViewBinding> : Fragment(), IState {
         savedInstanceState: Bundle?
     ): View? {
         log("onCreateView")
+        rootGroup = FrameLayout(requireContext())
         _binding = createBinding() ?: createBinding(inflater)
         doOnOnCreateView()
-        val frameLayout = FrameLayout(requireContext())
         val lp = FrameLayout.LayoutParams(
             FrameLayout.LayoutParams.MATCH_PARENT,
             FrameLayout.LayoutParams.MATCH_PARENT
         )
         lp.setMargins(0, if (haveHeadMargin()) 0 else BarUtils.getStatusBarHeight(), 0, 0)
         binding.root.layoutParams = lp
-        frameLayout.setBackgroundColor(resources.getColor(com.example.common_res.R.color.colorBackground,context?.theme))
-        frameLayout.addView(binding.root)
-        return frameLayout
+        rootGroup.setBackgroundColor(resources.getColor(com.example.common_res.R.color.colorBackground,context?.theme))
+        rootGroup.addView(binding.root)
+        return rootGroup
     }
 
     protected open fun doOnOnCreateView() {
@@ -72,8 +72,8 @@ abstract class BaseVbFragment<VB : ViewBinding> : Fragment(), IState {
             loadingFinished()
         }
         loadData()
-        initView()
         initData()
+        initView()
     }
 
     override fun onDestroyView() {
@@ -98,9 +98,10 @@ abstract class BaseVbFragment<VB : ViewBinding> : Fragment(), IState {
                 FrameLayout.LayoutParams.MATCH_PARENT,
                 FrameLayout.LayoutParams.MATCH_PARENT
             )
-            (binding.root as? ViewGroup)?.addView(state.getStateView(), params)
+            rootGroup.addView(state.getStateView(), params)
         }
     }
+
 
     protected open fun initView() {
         // 初始化视图
