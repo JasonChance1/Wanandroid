@@ -7,9 +7,8 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.example.app_mvvm_kotlin.base.BaseArticleViewModel
-import com.example.app_mvvm_kotlin.base.BaseViewModel
 import com.example.app_mvvm_kotlin.paging.ProjectPagingSource
+import com.example.common.ui.BaseViewModel
 import com.example.model.ApiResult
 import com.example.model.Article
 import com.example.model.ProjectClassify

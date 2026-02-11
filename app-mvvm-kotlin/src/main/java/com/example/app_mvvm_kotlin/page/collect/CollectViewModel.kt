@@ -4,14 +4,11 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
-import androidx.paging.filter
-import com.example.app_mvvm_kotlin.base.BaseViewModel
-import com.example.app_mvvm_kotlin.paging.ArticlesPagingSource
 import com.example.app_mvvm_kotlin.paging.CollectPagingSource
+import com.example.common.ui.BaseViewModel
 import com.example.model.ApiResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 

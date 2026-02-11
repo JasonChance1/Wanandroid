@@ -13,9 +13,8 @@ import com.example.app_mvvm_kotlin.adapters.ArticlePagingAdapter
 import com.example.app_mvvm_kotlin.page.collect.CollectViewModel
 import com.example.app_mvvm_kotlin.databinding.FragmentHomeBinding
 import com.example.common.constant.IntentConstant
-import com.example.common.entities.state.UiState
 import com.example.common.extensions.addEqualSpacing
-import com.example.common.ui.fragment.BaseVbFragment
+import com.example.common.ui.fragment.StateObserveFragment
 import com.youth.banner.indicator.CircleIndicator
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -25,7 +24,7 @@ import kotlinx.coroutines.launch
  * @date 2026-01-14  星期三
  * @description
  */
-class HomeFragment : BaseVbFragment<FragmentHomeBinding>() {
+class HomeFragment : StateObserveFragment<FragmentHomeBinding>() {
     private val viewModel by viewModels<HomeViewModel>()
     private lateinit var collectViewModel: CollectViewModel
     private val mAdapter = ArticlePagingAdapter()
@@ -73,36 +72,15 @@ class HomeFragment : BaseVbFragment<FragmentHomeBinding>() {
                 onItemClick = {
                     toDetail(it)
                 }
-            })
-                .setIndicator(CircleIndicator(requireContext()))
-        }
-
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.state.collect { state ->
-                    when (state) {
-                        UiState.Loading,
-                        UiState.Idle -> Unit
-
-                        is UiState.Success -> {
-                            binding.refreshLayout.finishRefresh()
-                            loadingFinished()
-                        }
-
-                        is UiState.Error -> showError()
-                    }
-                }
-            }
-        }
-
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.events.collect { msg ->
-                    toast(msg)
-                }
-            }
+            }).setIndicator(CircleIndicator(requireContext()))
         }
     }
+
+    override fun onLoadSuccess() {
+        binding.refreshLayout.finishRefresh()
+    }
+
+    override fun getBaseViewModel() = viewModel
 
     override fun doOnOnCreateView() {
         binding.banner.addBannerLifecycleObserver(this)

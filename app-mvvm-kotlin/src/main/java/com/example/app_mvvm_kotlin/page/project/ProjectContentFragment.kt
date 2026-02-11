@@ -11,9 +11,8 @@ import com.example.app_mvvm_kotlin.page.collect.CollectViewModel
 import com.example.app_mvvm_kotlin.databinding.FragmentProjectContentBinding
 import com.example.app_mvvm_kotlin.page.article.DetailArticleActivity
 import com.example.common.constant.IntentConstant
-import com.example.common.entities.state.UiState
 import com.example.common.extensions.addEqualSpacing
-import com.example.common.ui.fragment.BaseVbFragment
+import com.example.common.ui.fragment.StateObserveFragment
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -22,7 +21,7 @@ import kotlinx.coroutines.launch
  * @date 2026-02-10  星期二
  * @description
  */
-class ProjectContentFragment : BaseVbFragment<FragmentProjectContentBinding>() {
+class ProjectContentFragment : StateObserveFragment<FragmentProjectContentBinding>() {
     private var cid = 0
     private var titleName: String = ""
     private lateinit var viewModel:ProjectViewModel
@@ -47,6 +46,8 @@ class ProjectContentFragment : BaseVbFragment<FragmentProjectContentBinding>() {
         }
     }
 
+    override fun getBaseViewModel() = viewModel
+
     override fun autoLoading() = true
     override fun initView() {
         super.initView()
@@ -68,29 +69,6 @@ class ProjectContentFragment : BaseVbFragment<FragmentProjectContentBinding>() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.articlesFlow(cid).collectLatest { pagingData ->
                     articleAdapter.submitData(pagingData)
-                }
-            }
-        }
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.events.collect { msg ->
-                    toast(msg)
-                }
-            }
-        }
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.state.collect { state ->
-                    when (state) {
-                        UiState.Loading,
-                        UiState.Idle -> Unit
-
-                        is UiState.Success -> {
-                            loadingFinished()
-                        }
-
-                        is UiState.Error -> showError()
-                    }
                 }
             }
         }

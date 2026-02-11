@@ -56,4 +56,5 @@ dependencies {
     implementation(libs.lottie)
     implementation(libs.logginginterceptor)
     api (libs.utilcodex)
+    api(libs.androidx.lifecycle.viewmodel.android)
 }

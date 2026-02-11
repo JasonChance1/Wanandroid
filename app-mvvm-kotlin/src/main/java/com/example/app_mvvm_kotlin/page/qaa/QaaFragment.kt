@@ -12,7 +12,7 @@ import com.example.app_mvvm_kotlin.databinding.FragmentQaaBinding
 import com.example.app_mvvm_kotlin.page.article.DetailArticleActivity
 import com.example.common.constant.IntentConstant
 import com.example.common.extensions.addEqualSpacing
-import com.example.common.ui.fragment.BaseVbFragment
+import com.example.common.ui.fragment.StateObserveFragment
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -21,14 +21,21 @@ import kotlinx.coroutines.launch
  * @date 2026-01-14  星期三
  * @description
  */
-class QaaFragment : BaseVbFragment<FragmentQaaBinding>() {
+class QaaFragment : StateObserveFragment<FragmentQaaBinding>() {
     private lateinit var viewModel: QaaViewModel
     private lateinit var collectViewModel: CollectViewModel
     private lateinit var pageAdapter: ArticlePagingAdapter
-    override fun initView() {
-        super.initView()
+
+    override fun initData() {
+        super.initData()
         viewModel = ViewModelProvider(requireActivity())[QaaViewModel::class.java]
         collectViewModel = ViewModelProvider(requireActivity())[CollectViewModel::class.java]
+    }
+
+    override fun getBaseViewModel() = viewModel
+
+    override fun initView() {
+        super.initView()
         pageAdapter = ArticlePagingAdapter().apply {
             onItemClick = { toDetail(it.link) }
             onCollectClick = { isCollect, id ->

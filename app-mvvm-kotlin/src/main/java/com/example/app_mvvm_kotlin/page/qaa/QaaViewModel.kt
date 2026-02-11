@@ -4,8 +4,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
-import com.example.app_mvvm_kotlin.base.BaseViewModel
 import com.example.app_mvvm_kotlin.paging.QaaPagingSource
+import com.example.common.ui.BaseViewModel
 
 /**
  * @author wandervogel
