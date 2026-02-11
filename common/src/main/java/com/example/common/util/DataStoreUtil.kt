@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.common.constant.DSConstant
 import com.example.common.net.CookieCodec
+import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
@@ -24,12 +25,14 @@ private val Context.dataStore by preferencesDataStore(name = "user_prefs")
 object DataStoreUtil {
 
     private lateinit var dataStore: DataStore<Preferences>
+    lateinit var gson: Gson
 
     /**
      * 初始化，在 Application.onCreate 调用一次
      */
     fun init(context: Context): DataStoreUtil {
         dataStore = context.dataStore
+        gson = Gson()
         return this
     }
 
@@ -101,6 +104,23 @@ object DataStoreUtil {
 
         dataStore.edit { prefs ->
             prefs[DSConstant.COOKIES] = set
+        }
+    }
+
+    suspend fun <T> putObject(key: String, value: T) {
+        putData(key, gson.toJson(value))
+    }
+
+    suspend inline fun <reified T> getObjectOnce(key: String, default: T? = null): T? {
+        val json = getOnce(key, "")
+        if (json.isBlank()) return default
+        return runCatching { gson.fromJson(json, T::class.java) }.getOrElse { default }
+    }
+
+    fun <T> getObjectFlow(key: String, clazz: Class<T>, default: T? = null): Flow<T?> {
+        return getData(key, "").map { json ->
+            if (json.isBlank()) default
+            else runCatching { gson.fromJson(json, clazz) }.getOrElse { default }
         }
     }
 

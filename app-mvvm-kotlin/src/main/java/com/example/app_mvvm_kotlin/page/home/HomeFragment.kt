@@ -1,7 +1,6 @@
 package com.example.app_mvvm_kotlin.page.home
 
 import android.os.Bundle
-import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
@@ -41,7 +40,6 @@ class HomeFragment : StateObserveFragment<FragmentHomeBinding>() {
     }
 
     private fun initRecyclerView() {
-//        mAdapter.withLoadStateFooter()// 添加footer
         mAdapter.onCollectClick = { isCollect, id ->
             if (isCollect) {
                 collectViewModel.collect(id)
@@ -107,9 +105,8 @@ class HomeFragment : StateObserveFragment<FragmentHomeBinding>() {
         startActivity(DetailArticleActivity::class.java, bundle)
     }
 
-    override fun showEmptyView(tip: String, emptyAction: View.OnClickListener?) {
-        super.showEmptyView(tip) {
-            mAdapter.retry()
-        }
+    override fun retry() {
+        super.retry()
+        mAdapter.refresh()
     }
 }

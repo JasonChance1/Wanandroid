@@ -23,8 +23,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp_20"
         android:textColor="@color/secondary_text"
-        android:textSize="@dimen/sp_13"
-        tools:text="没有更多内容了" />
+        android:textSize="@dimen/sp_13" />
 
     <TextView
         android:id="@+id/retryTip"
@@ -35,5 +34,5 @@
         android:layout_marginBottom="@dimen/dp_20"
         android:textSize="@dimen/sp_13"
         android:visibility="gone"
-        tools:text="@string/retry" />
+        android:text="@string/retry" />
 </LinearLayout>

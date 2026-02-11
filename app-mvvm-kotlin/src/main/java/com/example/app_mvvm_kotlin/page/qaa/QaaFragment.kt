@@ -65,4 +65,9 @@ class QaaFragment : StateObserveFragment<FragmentQaaBinding>() {
         }
         startActivity(DetailArticleActivity::class.java, bundle)
     }
+
+    override fun retry() {
+        super.retry()
+        pageAdapter.refresh()
+    }
 }

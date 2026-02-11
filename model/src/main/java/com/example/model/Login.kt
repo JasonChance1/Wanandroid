@@ -2,7 +2,8 @@ package com.example.model
 
 data class Login(
     val admin: Boolean,
-    val chapterTops: List<Any>,
+//    val chapterTops: List<Any>,
+    val coinCount:Int,
     val collectIds: List<Int>,
     val email: String,
     val icon: String,

@@ -7,6 +7,7 @@ import com.example.common.entities.event.LoginEvent
 import com.example.common.entities.state.LoginUiState
 import com.example.common.util.DataStoreUtil
 import com.example.model.ApiResult
+import com.example.model.Login
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -34,9 +35,9 @@ class LoginViewModel(
 
     init {
         viewModelScope.launch {
-            // 预填账号
-            DataStoreUtil.getData(DSConstant.USERNAME, "").collect { username ->
-                _uiState.update { it.copy(username = username) }
+            DataStoreUtil.getObjectOnce<Login>(DSConstant.USER,null)?.let{user->
+                // 预填账号
+                _uiState.update { it.copy(username = user.username) }
             }
         }
     }
@@ -57,8 +58,7 @@ class LoginViewModel(
                 is ApiResult.Success -> {
                     _uiState.update { it.copy(loading = false) }
                     _event.send(LoginEvent.LoginSuccess(r.data))
-                    DataStoreUtil.putData(DSConstant.USERNAME, username)
-                    DataStoreUtil.putData(DSConstant.PASSWORD, password)
+                    DataStoreUtil.putObject(DSConstant.USER, r.data)
                 }
 
                 is ApiResult.Error -> {

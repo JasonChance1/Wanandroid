@@ -51,6 +51,7 @@ class ProjectContentFragment : StateObserveFragment<FragmentProjectContentBindin
     override fun autoLoading() = true
     override fun initView() {
         super.initView()
+
         articleAdapter = ArticlePagingAdapter().apply {
             onItemClick = { toDetail(it.link) }
             onCollectClick = { isCollect, id ->
@@ -79,5 +80,10 @@ class ProjectContentFragment : StateObserveFragment<FragmentProjectContentBindin
             putString(IntentConstant.KEY_1, url)
         }
         startActivity(DetailArticleActivity::class.java, bundle)
+    }
+
+    override fun retry() {
+        super.retry()
+        articleAdapter.refresh()
     }
 }

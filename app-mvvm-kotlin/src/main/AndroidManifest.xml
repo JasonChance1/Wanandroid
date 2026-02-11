@@ -26,7 +26,8 @@
 
         <activity
             android:name=".page.auth.LoginActivity"
-            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
+            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize"
+            android:launchMode="singleTask" />
         <activity
             android:name=".page.auth.RegisterActivity"
             android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
