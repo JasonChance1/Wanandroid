@@ -35,7 +35,7 @@ class MyCollectActivity : BaseVbActivity<ActivityCollectBinding>() {
 
     private fun initRecyclerView() {
         mAdapter.onItemRemove = { id ->
-            viewModel.cancelCollect(id)
+            viewModel.removeCollect(id)
         }
         mAdapter.onItemClick = {
             toDetail(it.link)
@@ -80,11 +80,7 @@ class MyCollectActivity : BaseVbActivity<ActivityCollectBinding>() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.events.collect { msg ->
-                    if (msg == CollectViewModel.CANCEL_SUCCESS) {
-//                        viewModel.updatePagingSource()
-                    } else {
-                        toast(msg)
-                    }
+                    toast(msg)
                 }
             }
         }

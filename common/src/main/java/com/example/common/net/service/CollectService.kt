@@ -15,4 +15,6 @@ interface CollectService {
 
     @POST("lg/uncollect_originId/{id}/json")
     suspend fun cancelCollect(@Path("id") id: Int): BaseResponse<Any>
+    @POST("lg/uncollect/{id}/json")
+    suspend fun uncollect(@Path("id") id: Int): BaseResponse<Any>
 }

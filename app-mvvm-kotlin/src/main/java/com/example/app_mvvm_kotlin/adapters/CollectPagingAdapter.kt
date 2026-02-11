@@ -13,7 +13,7 @@ import com.example.model.Collect
 class CollectPagingAdapter :
     PagingDataAdapter<Collect, CollectPagingAdapter.VH>(DIFF) {
 
-    var onItemRemove: ((id: Int) -> Unit) = {_ -> }
+    var onItemRemove: ((id: Int) -> Unit) = { _ -> }
     var onItemClick: ((item: Collect) -> Unit) = {}
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         VH(ItemArticleHomeBinding.inflate(LayoutInflater.from(parent.context), parent, false))
@@ -28,7 +28,7 @@ class CollectPagingAdapter :
                 tvTime.text = item.publishTime.toDateTimeString("yyyy-MM-dd")
 
                 ivCollect.setOnClickListener {
-                    onItemRemove.invoke(item.id)
+                    onItemRemove.invoke(item.originId ?: item.id)
                 }
                 root.setOnClickListener {
                     onItemClick.invoke(item)

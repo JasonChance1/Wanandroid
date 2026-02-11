@@ -25,7 +25,7 @@ data class Collect(
     val link: String,
     val niceDate: String,
     val origin: String,
-    val originId: Int,
+    val originId: Int?,
     val publishTime: Long,
     val title: String,
     val userId: Int,

@@ -14,5 +14,6 @@ class CollectRepository (private val collectService: CollectService = CoreRetrof
 
     suspend fun collect(id:Int) = safeApiCall { collectService.toCollect(id) }
     suspend fun cancelCollect(id:Int) = safeApiCall { collectService.cancelCollect(id) }
+    suspend fun uncollect(id:Int) = safeApiCall { collectService.uncollect(id) }
     suspend fun getCollectList(page:Int) = safeApiCall { collectService.getCollectList(page) }
 }

@@ -4,12 +4,14 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
+import androidx.paging.filter
 import com.example.app_mvvm_kotlin.base.BaseViewModel
 import com.example.app_mvvm_kotlin.paging.ArticlesPagingSource
 import com.example.app_mvvm_kotlin.paging.CollectPagingSource
 import com.example.model.ApiResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -19,12 +21,9 @@ import kotlinx.coroutines.launch
  * @description
  */
 open class CollectViewModel : BaseViewModel() {
-    companion object{
-        const val CANCEL_SUCCESS = "cancel_success"
-        const val COLLECT_SUCCESS = "collect_success"
-    }
-    private val repo = CollectRepository()
 
+    private val repo = CollectRepository()
+    private var currentPagingSource: CollectPagingSource? = null
     private val _collectOverrides = MutableStateFlow<Map<Int, Boolean>>(emptyMap())
     val collectOverrides = _collectOverrides.asStateFlow()
 
@@ -46,27 +45,26 @@ open class CollectViewModel : BaseViewModel() {
             when (val r = repo.cancelCollect(id)) {
                 is ApiResult.Success -> {
                     setCollect(id, false)
-                    _events.emit(CANCEL_SUCCESS)
                 }
 
                 is ApiResult.Error -> _events.emit(r.message)
             }
         }
     }
+
+    val collectList = Pager(
+        PagingConfig(pageSize = 20),
+        pagingSourceFactory = {
+            CollectPagingSource(repo,_state).also { currentPagingSource = it }
+        }
+    ).flow.cachedIn(viewModelScope)
+
     fun removeCollect(id: Int) {
         viewModelScope.launch {
             when (val r = repo.cancelCollect(id)) {
-                is ApiResult.Success -> {
-
-                }
-                is ApiResult.Error -> {
-                    // toast / event
-                }
+                is ApiResult.Success -> currentPagingSource?.invalidate()
+                is ApiResult.Error ->  _events.emit(r.message)
             }
         }
     }
-    val collectList = Pager(
-        config = PagingConfig(pageSize = 20),
-        pagingSourceFactory = { CollectPagingSource(repo, _state) }
-    ).flow.cachedIn(viewModelScope)
 }
