@@ -9,9 +9,9 @@
         android:icon="@drawable/ic_project"
         android:title="项目" />
     <item
-        android:id="@+id/system_graph"
-        android:icon="@drawable/ic_system"
-        android:title="体系" />
+        android:id="@+id/qaa_graph"
+        android:icon="@drawable/qaa_graph"
+        android:title="问答" />
     <item
         android:id="@+id/mine_graph"
         android:icon="@drawable/ic_mine"

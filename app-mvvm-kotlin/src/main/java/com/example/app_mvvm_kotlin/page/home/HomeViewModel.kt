@@ -6,8 +6,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
-import com.example.app_mvvm_kotlin.paging.ArticlesPagingSource
 import com.example.app_mvvm_kotlin.base.BaseViewModel
+import com.example.app_mvvm_kotlin.paging.ArticlesPagingSource
 import com.example.model.ApiResult
 import com.example.model.BannerBean
 import kotlinx.coroutines.launch
@@ -43,25 +43,4 @@ open class HomeViewModel() : BaseViewModel() {
         ),
         pagingSourceFactory = { ArticlesPagingSource(repository, _state) }
     ).flow.cachedIn(viewModelScope)
-
-    fun collect(id: Int) {
-        viewModelScope.launch {
-            when (val r = repository.collect(id)) {
-                is ApiResult.Success -> {}
-                is ApiResult.Error -> {
-                    _events.emit(r.message)
-                }
-            }
-        }
-    }
-    fun cancelCollect(id: Int) {
-        viewModelScope.launch {
-            when (val r = repository.cancelCollect(id)) {
-                is ApiResult.Success -> {}
-                is ApiResult.Error -> {
-                    _events.emit(r.message)
-                }
-            }
-        }
-    }
 }

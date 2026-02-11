@@ -1,16 +1,15 @@
 package com.example.app_mvvm_kotlin.page.project
 
 import android.os.Bundle
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.app_mvvm_kotlin.adapters.ArticlePagingAdapter
+import com.example.app_mvvm_kotlin.common.collect.CollectViewModel
 import com.example.app_mvvm_kotlin.databinding.FragmentProjectContentBinding
 import com.example.app_mvvm_kotlin.page.article.DetailArticleActivity
-import com.example.app_mvvm_kotlin.page.home.HomeViewModel
 import com.example.common.constant.IntentConstant
 import com.example.common.entities.state.UiState
 import com.example.common.extensions.addEqualSpacing
@@ -27,7 +26,7 @@ class ProjectContentFragment : BaseVbFragment<FragmentProjectContentBinding>() {
     private var cid = 0
     private var titleName: String = ""
     private lateinit var viewModel:ProjectViewModel
-    private lateinit var homeViewModel:HomeViewModel
+    private lateinit var collectViewModel: CollectViewModel
     private lateinit var articleAdapter: ArticlePagingAdapter
 
     companion object {
@@ -40,8 +39,8 @@ class ProjectContentFragment : BaseVbFragment<FragmentProjectContentBinding>() {
     }
 
     override fun initData() {
+        collectViewModel = ViewModelProvider(requireActivity())[CollectViewModel::class]
         viewModel = ViewModelProvider(requireActivity())[ProjectViewModel::class]
-        homeViewModel = ViewModelProvider(requireActivity())[HomeViewModel::class]
         arguments?.let {
             cid = it.getInt(IntentConstant.KEY_1)
             titleName = it.getString(IntentConstant.KEY_2, "")
@@ -55,9 +54,9 @@ class ProjectContentFragment : BaseVbFragment<FragmentProjectContentBinding>() {
             onItemClick = { toDetail(it.link) }
             onCollectClick = { isCollect, id ->
                 if (isCollect) {
-                    homeViewModel.collect(id)
+                    collectViewModel.collect(id)
                 } else {
-                    homeViewModel.cancelCollect(id)
+                    collectViewModel.cancelCollect(id)
                 }
             }
         }

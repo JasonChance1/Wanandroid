@@ -29,6 +29,7 @@ class ArticlePagingAdapter :
 
                 ivCollect.setOnClickListener {
                     ivCollect.isSelected = !ivCollect.isSelected
+                    item.collect = ivCollect.isSelected
                     onCollectClick.invoke(ivCollect.isSelected, item.id)
                 }
                 root.setOnClickListener {

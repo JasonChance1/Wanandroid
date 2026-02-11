@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/system_graph"
+    android:id="@+id/qaa_graph"
     app:startDestination="@id/systemFragment">
 
     <fragment
         android:id="@+id/systemFragment"
-        android:name="com.example.app_mvvm_kotlin.page.system.SystemFragment"
+        android:name="com.example.app_mvvm_kotlin.page.qaa.QaaFragment"
         android:label="SystemFragment" />
 </navigation>

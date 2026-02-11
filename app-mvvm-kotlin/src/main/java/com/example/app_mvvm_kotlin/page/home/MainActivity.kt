@@ -18,7 +18,7 @@ class MainActivity : BaseVbActivity<ActivityMainBinding>() {
     private val tabGraphs = mapOf(
         R.id.home_graph to R.navigation.nav_home,
         R.id.project_graph to R.navigation.nav_project,
-        R.id.system_graph to R.navigation.nav_system,
+        R.id.qaa_graph to R.navigation.nav_qaa,
         R.id.mine_graph to R.navigation.nav_mine
     )
 

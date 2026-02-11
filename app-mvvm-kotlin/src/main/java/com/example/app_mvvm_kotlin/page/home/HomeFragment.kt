@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.app_mvvm_kotlin.page.article.DetailArticleActivity
 import com.example.app_mvvm_kotlin.adapters.ArticlePagingAdapter
+import com.example.app_mvvm_kotlin.common.collect.CollectViewModel
 import com.example.app_mvvm_kotlin.databinding.FragmentHomeBinding
 import com.example.common.constant.IntentConstant
 import com.example.common.entities.state.UiState
@@ -25,6 +27,7 @@ import kotlinx.coroutines.launch
  */
 class HomeFragment : BaseVbFragment<FragmentHomeBinding>() {
     private val viewModel by viewModels<HomeViewModel>()
+    private lateinit var collectViewModel: CollectViewModel
     private val mAdapter = ArticlePagingAdapter()
     override fun initView() {
         super.initView()
@@ -35,15 +38,16 @@ class HomeFragment : BaseVbFragment<FragmentHomeBinding>() {
 
     override fun loadData() {
         viewModel.getBanner()
+        collectViewModel = ViewModelProvider(requireActivity())[CollectViewModel::class]
     }
 
     private fun initRecyclerView() {
 //        mAdapter.withLoadStateFooter()// 添加footer
         mAdapter.onCollectClick = { isCollect, id ->
             if (isCollect) {
-                viewModel.collect(id)
+                collectViewModel.collect(id)
             } else {
-                viewModel.cancelCollect(id)
+                collectViewModel.cancelCollect(id)
             }
         }
         mAdapter.onItemClick = {

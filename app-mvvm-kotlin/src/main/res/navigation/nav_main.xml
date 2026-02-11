@@ -6,7 +6,7 @@
 
     <include app:graph="@navigation/nav_home" />
     <include app:graph="@navigation/nav_project" />
-    <include app:graph="@navigation/nav_system" />
+    <include app:graph="@navigation/nav_qaa" />
     <include app:graph="@navigation/nav_mine" />
 
 </navigation>
