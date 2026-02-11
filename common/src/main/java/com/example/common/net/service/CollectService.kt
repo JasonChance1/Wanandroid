@@ -1,14 +1,14 @@
 package com.example.common.net.service
 
 import com.example.model.BaseResponse
-import com.example.model.Collect
+import com.example.model.CollectList
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface CollectService {
     @GET("lg/collect/list/{page}/json")
-    suspend fun getCollectList(@Path("page") page: Int): BaseResponse<Collect>
+    suspend fun getCollectList(@Path("page") page: Int): BaseResponse<CollectList>
 
     @POST("lg/collect/{id}/json")
     suspend fun toCollect(@Path("id") id: Int): BaseResponse<Any>

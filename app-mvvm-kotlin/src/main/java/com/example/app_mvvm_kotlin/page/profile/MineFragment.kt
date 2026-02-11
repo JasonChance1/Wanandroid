@@ -2,6 +2,7 @@ package com.example.app_mvvm_kotlin.page.profile
 
 import com.example.app_mvvm_kotlin.databinding.FragmentMineBinding
 import com.example.app_mvvm_kotlin.page.auth.LoginActivity
+import com.example.app_mvvm_kotlin.page.collect.MyCollectActivity
 import com.example.common.ui.fragment.BaseVbFragment
 
 /**
@@ -14,6 +15,10 @@ class MineFragment : BaseVbFragment<FragmentMineBinding>() {
         super.initView()
         binding.tvUsername.setOnClickListener {
             startActivity(LoginActivity::class.java)
+        }
+
+        binding.btnCollect.setOnClickListener {
+            startActivity(MyCollectActivity::class.java)
         }
     }
 }

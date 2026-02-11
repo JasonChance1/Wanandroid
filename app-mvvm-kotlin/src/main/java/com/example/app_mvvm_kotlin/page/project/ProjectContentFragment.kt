@@ -7,7 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.app_mvvm_kotlin.adapters.ArticlePagingAdapter
-import com.example.app_mvvm_kotlin.common.collect.CollectViewModel
+import com.example.app_mvvm_kotlin.page.collect.CollectViewModel
 import com.example.app_mvvm_kotlin.databinding.FragmentProjectContentBinding
 import com.example.app_mvvm_kotlin.page.article.DetailArticleActivity
 import com.example.common.constant.IntentConstant

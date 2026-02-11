@@ -1,8 +1,12 @@
-package com.example.app_mvvm_kotlin.common.collect
+package com.example.app_mvvm_kotlin.page.collect
 
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
 import com.example.app_mvvm_kotlin.base.BaseViewModel
-import com.example.app_mvvm_kotlin.common.collect.CollectRepository
+import com.example.app_mvvm_kotlin.paging.ArticlesPagingSource
+import com.example.app_mvvm_kotlin.paging.CollectPagingSource
 import com.example.model.ApiResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,6 +19,10 @@ import kotlinx.coroutines.launch
  * @description
  */
 open class CollectViewModel : BaseViewModel() {
+    companion object{
+        const val CANCEL_SUCCESS = "cancel_success"
+        const val COLLECT_SUCCESS = "collect_success"
+    }
     private val repo = CollectRepository()
 
     private val _collectOverrides = MutableStateFlow<Map<Int, Boolean>>(emptyMap())
@@ -36,9 +44,29 @@ open class CollectViewModel : BaseViewModel() {
     fun cancelCollect(id: Int) {
         viewModelScope.launch {
             when (val r = repo.cancelCollect(id)) {
-                is ApiResult.Success -> setCollect(id, false)
+                is ApiResult.Success -> {
+                    setCollect(id, false)
+                    _events.emit(CANCEL_SUCCESS)
+                }
+
                 is ApiResult.Error -> _events.emit(r.message)
             }
         }
     }
+    fun removeCollect(id: Int) {
+        viewModelScope.launch {
+            when (val r = repo.cancelCollect(id)) {
+                is ApiResult.Success -> {
+
+                }
+                is ApiResult.Error -> {
+                    // toast / event
+                }
+            }
+        }
+    }
+    val collectList = Pager(
+        config = PagingConfig(pageSize = 20),
+        pagingSourceFactory = { CollectPagingSource(repo, _state) }
+    ).flow.cachedIn(viewModelScope)
 }

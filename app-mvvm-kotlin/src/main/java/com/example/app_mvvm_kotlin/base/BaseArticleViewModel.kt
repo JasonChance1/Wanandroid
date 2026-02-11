@@ -1,7 +1,7 @@
 package com.example.app_mvvm_kotlin.base
 
 import androidx.lifecycle.viewModelScope
-import com.example.app_mvvm_kotlin.common.collect.CollectRepository
+import com.example.app_mvvm_kotlin.page.collect.CollectRepository
 import com.example.model.ApiResult
 import kotlinx.coroutines.launch
 

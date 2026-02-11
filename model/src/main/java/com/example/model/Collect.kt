@@ -5,16 +5,16 @@ package com.example.model
  * @date 2026-02-10  星期二
  * @description
  */
-data class Collect(
+data class CollectList(
     val curPage: Int,
-    val datas: List<CollectX>,
+    val datas: List<Collect>,
     val offset: Int,
     val over: Boolean,
     val pageCount: Int,
     val size: Int,
     val total: Int
 )
-data class CollectX(
+data class Collect(
     val author: String,
     val chapterId: Int,
     val chapterName: String,

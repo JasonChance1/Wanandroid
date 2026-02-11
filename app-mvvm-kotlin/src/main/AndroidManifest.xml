@@ -33,6 +33,9 @@
         <activity
             android:name=".page.article.DetailArticleActivity"
             android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
+        <activity
+            android:name=".page.collect.MyCollectActivity"
+            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
     </application>
 
 </manifest>

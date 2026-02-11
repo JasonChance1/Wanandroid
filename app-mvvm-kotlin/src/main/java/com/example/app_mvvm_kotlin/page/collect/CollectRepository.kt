@@ -1,4 +1,4 @@
-package com.example.app_mvvm_kotlin.common.collect
+package com.example.app_mvvm_kotlin.page.collect
 
 import com.example.common.extensions.safeApiCall
 import com.example.common.net.CoreRetrofit
@@ -14,4 +14,5 @@ class CollectRepository (private val collectService: CollectService = CoreRetrof
 
     suspend fun collect(id:Int) = safeApiCall { collectService.toCollect(id) }
     suspend fun cancelCollect(id:Int) = safeApiCall { collectService.cancelCollect(id) }
+    suspend fun getCollectList(page:Int) = safeApiCall { collectService.getCollectList(page) }
 }
