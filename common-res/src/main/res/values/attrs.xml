@@ -23,4 +23,8 @@
         <!--        右侧文字颜色-->
         <attr name="text1Color" format="reference|color" />
     </declare-styleable>
+
+    <declare-styleable name="SearchButton">
+        <attr name="btnColor" format="color|reference" />
+    </declare-styleable>
 </resources>

@@ -96,6 +96,15 @@ suspend inline fun <T> safeApiCall(
     }
 }
 
+suspend inline fun <T> safeApiCallList(
+    crossinline block: suspend () -> BaseResponse<List<T>>
+): ApiResult<List<T>> =
+    when (val r = safeApiCall(block)) {
+        is ApiResult.Success -> ApiResult.Success(r.data.orEmpty())
+        is ApiResult.Error -> r
+    }
+
+
 val Any?.safeGetStr
     get() = this?.toString() ?: ""
 

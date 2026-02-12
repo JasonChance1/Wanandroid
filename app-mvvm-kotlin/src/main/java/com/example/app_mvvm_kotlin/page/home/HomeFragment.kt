@@ -1,6 +1,8 @@
 package com.example.app_mvvm_kotlin.page.home
 
 import android.os.Bundle
+import android.view.inputmethod.EditorInfo
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
@@ -11,9 +13,11 @@ import com.example.app_mvvm_kotlin.page.article.DetailArticleActivity
 import com.example.app_mvvm_kotlin.adapters.ArticlePagingAdapter
 import com.example.app_mvvm_kotlin.page.collect.CollectViewModel
 import com.example.app_mvvm_kotlin.databinding.FragmentHomeBinding
+import com.example.app_mvvm_kotlin.page.search.SearchActivity
 import com.example.common.constant.IntentConstant
 import com.example.common.extensions.addEqualSpacing
 import com.example.common.ui.fragment.StateObserveFragment
+import com.google.android.material.search.SearchView
 import com.youth.banner.indicator.CircleIndicator
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -32,6 +36,9 @@ class HomeFragment : StateObserveFragment<FragmentHomeBinding>() {
         startLoading()
         observeState()
         initRecyclerView()
+        binding.llSearch.setOnClickListener {
+            startActivity(SearchActivity::class.java)
+        }
     }
 
     override fun loadData() {

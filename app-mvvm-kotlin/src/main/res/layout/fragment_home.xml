@@ -5,16 +5,36 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <common.widiget.TitleBar
-        android:id="@+id/title_bar"
+    <RelativeLayout
+        android:id="@+id/ll_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="@dimen/dp_16"
-        app:icon1="@drawable/ic_search"
+        android:background="@color/primary_500"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:id="@+id/tv_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="搜索"
+            android:background="@drawable/round_99_surface"
+            android:padding="@dimen/dp_6"
+            android:textColor="@color/icon_normal" />
+
+        <common.widiget.SearchButton
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:btnColor="@color/primary_500"
+            android:layout_marginEnd="@dimen/dp_8"
+            android:layout_alignEnd="@id/tv_search"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </RelativeLayout>
 
     <com.youth.banner.Banner
         android:id="@+id/banner"
@@ -24,7 +44,7 @@
         app:layout_constraintDimensionRatio="16:9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_bar" />
+        app:layout_constraintTop_toBottomOf="@+id/ll_search" />
 
     <com.scwang.smart.refresh.layout.SmartRefreshLayout
         android:id="@+id/refresh_layout"

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tvText"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/round_16_f2"
+    android:text="热刺"
+    android:paddingHorizontal="@dimen/dp_10"
+    android:paddingVertical="@dimen/dp_4"
+    android:textSize="13sp"
+    android:maxLines="1"
+    android:backgroundTint="@color/app_secondary"
+    android:ellipsize="end"
+    android:textColor="@color/app_on_secondary"/>

@@ -25,7 +25,8 @@ class DetailArticleActivity : BaseVbActivity<ActivityDetailArticleBinding>() {
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
         binding.webView.loadUrl(detailUrl)
-
     }
+
+    override fun autoLoading() = false
     override fun getTitleBar() = binding.titleBar
 }

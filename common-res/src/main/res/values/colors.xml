@@ -65,7 +65,7 @@
     <color name="app_primary_container">#E2EFFB</color>
     <color name="app_on_primary_container">#000000</color>
 
-    <color name="app_secondary">#8B5CF6</color>
+    <color name="app_secondary">#E2EFFB</color>
     <color name="app_on_secondary">#FFFFFF</color>
     <color name="app_secondary_container">#ECE5FE</color>
     <color name="app_on_secondary_container">#000000</color>
