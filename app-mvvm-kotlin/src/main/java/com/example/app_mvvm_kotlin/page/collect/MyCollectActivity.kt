@@ -13,6 +13,7 @@ import com.example.app_mvvm_kotlin.page.article.DetailArticleActivity
 import com.example.common.constant.IntentConstant
 import com.example.common.extensions.addEqualSpacing
 import com.example.common.ui.activity.StateObserveActivity
+import common.widiget.TitleBar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -61,4 +62,5 @@ class MyCollectActivity : StateObserveActivity<ActivityCollectBinding>() {
         }
     }
 
+    override fun getTitleBar() = binding.titleBar
 }

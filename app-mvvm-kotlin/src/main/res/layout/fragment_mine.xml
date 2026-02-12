@@ -60,7 +60,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/iv_avatar" />
 
             <TextView
-                android:id="@+id/tv_score"
+                android:id="@+id/tv_coin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
@@ -76,10 +76,11 @@
                 android:layout_height="wrap_content"
                 android:background="@color/transparent"
                 android:text="明细"
+                android:textColor="@color/app_on_surface"
                 app:icon="@drawable/ic_chevron_right"
                 app:iconGravity="end"
                 app:iconTint="@color/text_color_black"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_score"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_coin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_score_des" />
 

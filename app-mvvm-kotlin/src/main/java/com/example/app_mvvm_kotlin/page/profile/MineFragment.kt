@@ -5,6 +5,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.app_mvvm_kotlin.databinding.FragmentMineBinding
 import com.example.app_mvvm_kotlin.page.auth.LoginActivity
 import com.example.app_mvvm_kotlin.page.collect.MyCollectActivity
+import com.example.app_mvvm_kotlin.page.points.PointsActivity
 import com.example.common.constant.DSConstant
 import com.example.common.extensions.safeGetStr
 import com.example.common.ui.fragment.StateObserveFragment
@@ -43,10 +44,15 @@ class MineFragment : StateObserveFragment<FragmentMineBinding>() {
             }
         }
 
+        binding.btnScoreDetail.setOnClickListener {
+            startActivity(PointsActivity::class.java)
+        }
+
         lifecycleScope.launch {
             DataStoreUtil.getObjectOnce<Login>(DSConstant.USER, null)?.let {
                 binding.tvUsername.text = it.publicName
                 binding.tvUid.text = it.id.safeGetStr
+                binding.tvCoin.text = it.coinCount.safeGetStr
             }
         }
     }

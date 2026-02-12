@@ -27,5 +27,5 @@ class DetailArticleActivity : BaseVbActivity<ActivityDetailArticleBinding>() {
         binding.webView.loadUrl(detailUrl)
 
     }
-
+    override fun getTitleBar() = binding.titleBar
 }

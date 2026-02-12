@@ -92,4 +92,6 @@ class MainActivity : BaseVbActivity<ActivityMainBinding>() {
         outState.putInt(KEY_SELECTED_TAB, binding.bottomNav.selectedItemId)
         super.onSaveInstanceState(outState)
     }
+
+    override fun autoLoading() = false
 }

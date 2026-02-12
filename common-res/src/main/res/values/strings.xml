@@ -33,4 +33,9 @@
     <string name="profile_action_icon">功能图标</string>
     <string name="profile_action_arrow">进入</string>
 
+    <string name="cur_pts">当前积分：</string>
+    <string name="rank">排名</string>
+    <string name="level">等级</string>
+    <string name="points">积分</string>
+    <string name="nickname">用户名</string>
 </resources>

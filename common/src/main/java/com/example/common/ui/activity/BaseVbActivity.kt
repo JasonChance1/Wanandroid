@@ -21,6 +21,7 @@ import com.example.common.extensions.transparentStatusBar
 import com.example.common.ui.dialog.LoadingDialog
 import com.example.common.ui.state.DefaultStateImpl
 import com.example.common.ui.state.IState
+import common.widiget.TitleBar
 import java.lang.reflect.ParameterizedType
 
 /**
@@ -85,6 +86,9 @@ abstract class BaseVbActivity<VB : ViewBinding> : AppCompatActivity(), IState {
         }
         initData()
         setImmersion()
+        getTitleBar()?.let {
+            it.setOnBackClickListener { onBackPressedDispatcher.onBackPressed() }
+        }
         initView(savedInstanceState)
     }
 
@@ -93,7 +97,6 @@ abstract class BaseVbActivity<VB : ViewBinding> : AppCompatActivity(), IState {
     }
 
     private fun initState() {
-
         stateImpl = getState()
         stateImpl?.let {
             val params = FrameLayout.LayoutParams(
@@ -102,8 +105,6 @@ abstract class BaseVbActivity<VB : ViewBinding> : AppCompatActivity(), IState {
             )
             addContentView(it.getStateView(), params)
         }
-
-
     }
 
     protected open fun initView(savedInstanceState: Bundle?) {
@@ -155,15 +156,15 @@ abstract class BaseVbActivity<VB : ViewBinding> : AppCompatActivity(), IState {
         stateImpl?.showBadNetwork(listener)
     }
 
-    override fun showError(tip: String, listener: View.OnClickListener?) {
-        stateImpl?.showError(tip, listener)
+    override fun showError(tip: String, errorAction: View.OnClickListener?) {
+        stateImpl?.showError(tip, errorAction)
     }
 
-    override fun showEmptyView(tip: String, listener: View.OnClickListener?) {
-        stateImpl?.showEmptyView(tip, listener)
+    override fun showEmptyView(tip: String, emptyAction: View.OnClickListener?) {
+        stateImpl?.showEmptyView(tip, emptyAction)
     }
 
-    protected open fun autoLoading() = false
+    protected open fun autoLoading() = true
 
     protected open fun startActivity(cls: Class<*>) {
         val intent = Intent(this, cls)
@@ -217,4 +218,6 @@ abstract class BaseVbActivity<VB : ViewBinding> : AppCompatActivity(), IState {
     open fun showBar() {
         windowInsetsController.show(WindowInsetsCompat.Type.systemBars())// 隐藏状态栏
     }
+
+    open fun getTitleBar(): TitleBar? = null
 }

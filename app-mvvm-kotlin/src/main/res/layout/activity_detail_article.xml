@@ -6,9 +6,9 @@
     android:orientation="vertical">
 
     <common.widiget.TitleBar
+        android:id="@+id/title_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:backIconTint="@color/text_color_black" />
+        android:layout_height="wrap_content" />
 
     <WebView
         android:id="@+id/webView"
