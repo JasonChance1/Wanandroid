@@ -20,7 +20,11 @@ class FlowFlexLayout @JvmOverloads constructor(
     var horizontalSpacing = 8.dp
     var verticalSpacing = 8.dp
 
-    var maxLines: Int = 0// 0为不限制行数
+    var maxLines: Int = 0
+        // 0为不限制行数
+        set(value) {
+            field = value;invalidate()
+        }
 
     override fun generateLayoutParams(attrs: AttributeSet): LayoutParams {
         return MarginLayoutParams(context, attrs)
@@ -64,12 +68,13 @@ class FlowFlexLayout @JvmOverloads constructor(
             val childW = child.measuredWidth + lp.leftMargin + lp.rightMargin
             val childH = child.measuredHeight + lp.topMargin + lp.bottomMargin
 
-            val nextWidth = if (lineWidth == 0) childW else lineWidth + horizontalSpacing + childW
+            val nextWidth =
+                if (lineWidth == 0) childW else lineWidth + horizontalSpacing + childW
 
             if (nextWidth > maxWidth) {
                 // 换行
-                totalHeight += lineHeight
-                if (lines > 1) totalHeight += verticalSpacing
+                totalHeight += (lineHeight + verticalSpacing)
+//                if (lines > 1) totalHeight += verticalSpacing
 
                 lines++
                 if (maxLines in 1..<lines) {
@@ -145,7 +150,7 @@ class FlowFlexLayout @JvmOverloads constructor(
 
             child.layout(left, top, right, bottom)
 
-            x = if (x == paddingLeft) x + needW else x + horizontalSpacing + needW
+            x += horizontalSpacing + needW
             lineHeight = max(lineHeight, needH)
         }
     }

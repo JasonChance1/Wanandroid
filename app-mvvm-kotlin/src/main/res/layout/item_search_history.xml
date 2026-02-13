@@ -9,6 +9,6 @@
     android:paddingVertical="@dimen/dp_4"
     android:textSize="13sp"
     android:maxLines="1"
-    android:backgroundTint="@color/app_secondary"
+    android:backgroundTint="@color/red_btn_bg_color"
     android:ellipsize="end"
     android:textColor="@color/app_on_secondary"/>

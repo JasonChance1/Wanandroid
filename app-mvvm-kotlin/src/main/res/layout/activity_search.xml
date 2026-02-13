@@ -4,8 +4,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="热搜"
+        android:textColor="@color/app_on_surface"
+        android:textStyle="bold" />
+
     <common.widiget.FlowFlexLayout
         android:id="@+id/flowFlexLayout"
+        android:layout_marginTop="@dimen/dp_4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
