@@ -43,6 +43,9 @@
         <activity
             android:name=".page.points.PointsRankActivity"
             android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
+        <activity
+            android:name=".page.search.SearchActivity"
+            android:configChanges="keyboardHidden|keyboard|screenSize|locale|navigation|smallestScreenSize" />
     </application>
 
 </manifest>

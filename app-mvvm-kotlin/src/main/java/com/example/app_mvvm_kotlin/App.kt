@@ -6,6 +6,7 @@ import com.scwang.smart.refresh.footer.ClassicsFooter
 import com.scwang.smart.refresh.header.ClassicsHeader
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.example.common_res.R
+import com.example.model.db.AppDatabase
 
 /**
  * @author wandervogel
@@ -13,6 +14,8 @@ import com.example.common_res.R
  * @description application
  */
 class App : Application() {
+    lateinit var db: AppDatabase
+        private set
     companion object{
         lateinit var instance: App
         init {
@@ -30,6 +33,8 @@ class App : Application() {
         super.onCreate()
         instance = this
         DataStoreUtil.init(this)
+
+        db = AppDatabase.getInstance(this)
     }
 
 }

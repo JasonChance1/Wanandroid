@@ -28,7 +28,9 @@ lifecycleViewmodelAndroid = "2.9.3"
 pagingRuntime = "3.3.6"
 refreshHeaderClassics = "3.0.0-alpha"
 refreshLayoutKernel = "3.0.0-alpha"
+roomRuntime = "2.8.4"
 utilcodex = "1.31.1"
+ksp = "2.0.0-1.0.24"
 
 [libraries]
 adapter-rxjava2 = { module = "com.squareup.retrofit2:adapter-rxjava2", version.ref = "adapterRxjava2" }
@@ -38,6 +40,9 @@ androidx-datastore-preferences = { module = "androidx.datastore:datastore-prefer
 androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment", version.ref = "navigationUiKtx" }
 androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui", version.ref = "navigationUiKtx" }
 androidx-paging-runtime = { module = "androidx.paging:paging-runtime", version.ref = "pagingRuntime" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
+androidx-room-ktx     = { module = "androidx.room:room-ktx",     version.ref = "roomRuntime" }
+androidx-room-compiler= { module = "androidx.room:room-compiler",version.ref = "roomRuntime" }
 banner = { module = "io.github.youth5201314:banner", version.ref = "banner" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
@@ -74,3 +79,4 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
