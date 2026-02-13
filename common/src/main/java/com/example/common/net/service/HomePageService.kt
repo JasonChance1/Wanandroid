@@ -31,10 +31,4 @@ interface HomePageService {
 
     @GET("hotkey/json")
     suspend fun getHotKey(): BaseResponse<List<HotKey>>
-
-    @POST("article/query/{page}/json")
-    suspend fun getQueryArticleList(
-        @Path("page") page: Int,
-        @Query("k") k: String
-    ): BaseResponse<ArticleList>
 }

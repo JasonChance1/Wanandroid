@@ -1,20 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="热搜"
-        android:textColor="@color/app_on_surface"
-        android:textStyle="bold" />
+        android:orientation="vertical">
 
-    <common.widiget.FlowFlexLayout
-        android:id="@+id/flowFlexLayout"
-        android:layout_marginTop="@dimen/dp_4"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal"
+            android:paddingVertical="@dimen/dp_8">
+
+            <ImageButton
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:backgroundTint="@color/transparent"
+                android:src="@drawable/ic_back"
+                app:tint="@color/white" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/et_search"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:layout_toStartOf="@+id/btn_search"
+                android:layout_toEndOf="@+id/iv_back"
+                android:background="@drawable/round_99_surface"
+                android:ellipsize="end"
+                android:hint="输入关键词搜索"
+                android:imeOptions="actionSearch"
+                android:maxLines="1"
+                android:paddingHorizontal="@dimen/dp_8"
+                android:paddingVertical="@dimen/dp_4"
+                android:textSize="@dimen/sp_12" />
+
+            <ImageButton
+                android:id="@+id/btn_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp_8"
+                android:layout_alignEnd="@+id/et_search"
+                android:layout_centerVertical="true"
+                android:background="@color/transparent"
+                android:src="@drawable/ic_clear"
+                android:visibility="gone" />
+
+            <ImageButton
+                android:id="@+id/btn_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/dp_16"
+                android:background="@drawable/round_8_f3f8ff"
+                android:backgroundTint="@color/colorPrimary"
+                android:padding="@dimen/dp_6"
+                android:src="@drawable/ic_search"
+                app:tint="@color/white" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_keys"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:paddingHorizontal="@dimen/dp_4"
+                android:text="搜索历史"
+                android:textColor="@color/app_on_surface"
+                android:textStyle="bold" />
+
+            <common.widiget.FlowFlexLayout
+                android:id="@+id/flow_history"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_4"
+                android:paddingHorizontal="@dimen/dp_4" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:paddingHorizontal="@dimen/dp_4"
+                android:text="热搜"
+                android:textColor="@color/app_on_surface"
+                android:textStyle="bold" />
+
+            <common.widiget.FlowFlexLayout
+                android:id="@+id/flow_hot_key"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_4"
+                android:paddingHorizontal="@dimen/dp_4" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
+        android:layout_height="match_parent"
+        android:id="@+id/fl_result">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_result"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="@dimen/dp_4" />
+    </FrameLayout>
 </LinearLayout>

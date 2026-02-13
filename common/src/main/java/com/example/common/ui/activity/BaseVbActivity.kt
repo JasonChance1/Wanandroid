@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -97,13 +98,14 @@ abstract class BaseVbActivity<VB : ViewBinding> : AppCompatActivity(), IState {
     }
 
     private fun initState() {
+        val parent = getStateParent()
         stateImpl = getState()
         stateImpl?.let {
             val params = FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
                 FrameLayout.LayoutParams.MATCH_PARENT
             )
-            addContentView(it.getStateView(), params)
+            parent?.addView(it.getStateView(), params) ?: addContentView(it.getStateView(), params)
         }
     }
 
@@ -220,4 +222,6 @@ abstract class BaseVbActivity<VB : ViewBinding> : AppCompatActivity(), IState {
     }
 
     open fun getTitleBar(): TitleBar? = null
+
+    open fun getStateParent(): ViewGroup? = null
 }

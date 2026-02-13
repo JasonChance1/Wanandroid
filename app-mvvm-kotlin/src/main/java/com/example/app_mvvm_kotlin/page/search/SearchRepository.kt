@@ -2,12 +2,10 @@ package com.example.app_mvvm_kotlin.page.search
 
 import com.example.app_mvvm_kotlin.App
 import com.example.common.extensions.safeApiCall
-import com.example.common.extensions.safeApiCallList
 import com.example.common.net.CoreRetrofit
 import com.example.common.net.service.SearchService
 import com.example.model.ApiResult
 import com.example.model.HotKey
-import com.example.model.db.dao.HotKeyDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -21,13 +19,11 @@ import kotlinx.coroutines.withContext
 class SearchRepository(
     val service: SearchService = CoreRetrofit.create(SearchService::class.java)
 ) {
-    private val dao =App.instance.db.hotKeyDao()
+    private val dao = App.instance.db.hotKeyDao()
     private val ttlMillis = 6 * 60 * 60 * 1000L // 6小时更新一次
 
     fun observeHotKeys(): Flow<List<HotKey>> =
         dao.observeHotKeys().map { list -> list.map { it.toModel() } }
-
-    suspend fun hotKeys() = safeApiCallList { service.hotKeys() }
 
     suspend fun refreshIfNeed(force: Boolean = false): ApiResult<*> = withContext(Dispatchers.IO) {
         val last = dao.lastUpdatedAt() ?: 0L
@@ -46,4 +42,7 @@ class SearchRepository(
             ApiResult.Error("")
         }
     }
+
+    suspend fun search(page: Int, keyword: String) =
+        safeApiCall { service.search(page, keyword) }
 }

@@ -31,6 +31,7 @@ class SearchHistoryFlexAdapter(
                 onItemClick?.invoke(keyword)
             }
 
+
             binding.tvText.maxWidth = (parent.resources.displayMetrics.widthPixels * 0.6f).toInt()
 
             val lp = ViewGroup.MarginLayoutParams(
